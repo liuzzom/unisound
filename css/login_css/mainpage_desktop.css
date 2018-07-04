@@ -1,0 +1,72 @@
+body {
+	background-color: #b3d9ff;
+	margin: auto;
+	padding: 0;
+}
+
+header {
+	background-color: #143db8;
+	margin: 0;
+	padding: 0;
+	height: 80px;
+	color: white;
+}
+
+#sitename {
+	margin-top: 0px;
+	padding: 10px;
+}
+
+nav {
+	background-color: #2e4a9e;
+}
+
+#support {
+	color: white;
+	text-decoration: none;
+}
+
+#logo {
+	float: left;
+	height: 100px;
+	width: 100px;
+}
+
+#copyright {
+	background-color: #2e309e;
+	color: white;
+	position: fixed;
+	width: 100%;
+	bottom: 0px;	
+}
+
+#formlabel, .registrazione, #rememberlabel {
+	color: #000080;
+	line-height: 160%;
+}
+
+
+#formcontainer {
+	display: inline-block;
+	position: relative;
+	top: 50px;
+	margin-left: 10px;
+}
+
+#email, #password {
+	margin-bottom: 20px;
+}
+
+#catchphrase {
+	display: inline-block;
+	float:right;
+	margin-right: 480px;
+	margin-top: 10px; 
+}
+
+#slogan {
+	position: fixed;
+	font-size: 65px;
+	font-family: Ubuntu, serif;
+	color: #000080;
+}
