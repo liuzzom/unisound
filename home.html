@@ -14,27 +14,34 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <link rel="stylesheet" type="text/css" href="css/home_css/desktop.css">
-  <script type="text/javascript" src="js/login_js/form_validation.js"></script>
+  
 
 </head>
 <body>
-  <div id="container">
-    
+
+    <div id="headcontainer">
+        <header> <!--Logo e immagine-->
+         <img id="logo" src="images/unisound_logo.png" alt="UniSound logo">
+         <h1 id="sitename">UniSound</h1>
+        </header>
+  
+        <nav id="nav"><!--Mail di supporto-->
+          <a  id="support" href="mailto://unisound.support@gmail.com" title="Inviaci una mail">Supporto</a>
+        </nav>
+      </div>
+  
       <div class="leftpane">
-        <img id="logo" src="images/unisound_logo.png" alt="UniSound logo">
-        <h1 id="sitename">UniSound</h1>
-        <a  id="support" href="mailto://unisound.support@gmail.com" title="Inviaci una mail">Supporto</a>
+          <h1 id="playlist_section">Playlist Section</h1>
       </div>
 
       <div class="middlepane">
-        <h1 id="music">Music Section</h1></div>
+        <h1 id="song_section">Song Section</h1>
+      </div>
 
       <div class="rightpane">
-        <h1 id="friends">Friends Section</h1></div>
-    
-  </div>
+        <h1 id="friend_section">Friends Section</h1>
+      </div>
 
-  <!-- <footer id="copyright">&copy; Copyright Antonino Mauro Liuzzo, Federico Augello</footer> -->
   <footer id="streaming_section">
     <p id="song_name">Nome Brano</p>
     <p id="author">Autore Brano</p>
