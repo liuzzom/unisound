@@ -76,7 +76,7 @@ body {
 }
 
 #streaming_section {
-    background-color: #1b1b1b;
+    background-color: #2e309e;
     color: whitesmoke;
     position: fixed;
     width: 100%;
@@ -84,6 +84,7 @@ body {
 }
 
 #streaming_bar {
+    background-color: #2e309e;
     width: 100%;
 }
 
