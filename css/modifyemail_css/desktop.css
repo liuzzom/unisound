@@ -67,8 +67,9 @@ nav {
 
 }
 
-#email, #password {
+#old_email, #new_password {
     padding: 5px;
+    width: 95%;
 }
 
 @media only screen and (max-width: 1000px) {
