@@ -1,17 +1,17 @@
 function validate(){
     // initially hide the password warning message and disable the submit button
     $('.invalid_password').hide();
-    $('#submit').prop('disabled', true);
+    $('#submit').hide();
     $('#new_password').on('keyup', function(){
         var pass = $(this).val();
         if( pass.length < 8 || !hasUpperCase(pass) || !(/\d/.test(pass)) ){
             // show the password warning and disable the submit button
             $('.invalid_password').show();
-            $('#submit').prop('disabled', true);
+            $('#submit').hide();
         }else{
             // hide the password warning and enable the submit button
             $('.invalid_password').hide();
-            $('#submit').prop('disabled', false);
+            $('#submit').show();
         }
     })
 }

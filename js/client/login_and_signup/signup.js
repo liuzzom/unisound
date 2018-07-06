@@ -2,31 +2,41 @@ function validation(){
     // initially hide every warning box and disable the signup button
     $('.warning_box').hide();
     $('.invalid_mail').hide();
-    $('#signup').prop('disabled', true);
+    $('#signup').hide();
+
+    var nameOk = false, surnameOk = false, emailOk = false, passOk = false;
     
     $('#name').on('keyup', function(){
         var name = $('#name').val();
-        if(name = "" || !(/^[A-Za-z]*$/).test(name) ){
+        if(name = "" || !(/^[A-Za-z\s]*$/).test(name) ){
             // show the name warning and disable the signup button
             $('.invalid_name').show();
-            $('#signup').prop('disabled', true);
+            $('#signup').hide();
+            nameOk = false;
         }else{
             // hide the name warning and enable the signup button
             $('.invalid_name').hide();
-            $('#signup').prop('disabled', false);  
+            nameOk = true;
+            if(nameOk && surnameOk && emailOk && passOk){
+                $('#signup').show();
+            }  
         }
     });
 
     $('#surname').on('keyup', function(){
         var name = $('#surname').val();
-        if(name = "" || !(/^[A-Za-z]*$/).test(name) ){
+        if(name = "" || !(/^[A-Za-z\s]*$/).test(name) ){
             // show the surname warning and disable the signup button
             $('.invalid_surname').show();
-            $('#signup').prop('disabled', true);
+            $('#signup').hide();
+            surnameOk = false;
         }else{
             // hide the surname warning and enable the signup button
             $('.invalid_surname').hide();
-            $('#signup').prop('disabled', false);  
+            surnameOk = true;
+            if(nameOk && surnameOk && emailOk && passOk){
+                $('#signup').show();
+            }
         }
     });
 
@@ -35,11 +45,15 @@ function validation(){
         if( mail == "" || !(/^[A-za-z0-9\.]+@[A-za-z]+\.[A-za-z]+$/.test(mail)) ){
             // show the email warning and disable the signup button
             $('.invalid_mail').show();
-            $('#signup').prop('disabled', true); 
+            $('#signup').hide();
+            emailOk = false; 
         }else{
             // hide the email warning and enable the signup button
             $('.invalid_mail').hide();
-            $('#signup').prop('disabled', false);
+            emailOk = true;
+            if(nameOk && surnameOk && emailOk && passOk){
+                $('#signup').show();
+            }
         }
     });
 
@@ -48,11 +62,15 @@ function validation(){
         if(pass = "" || pass.length < 8 || !hasUpperCase(pass) || !(/\d/.test(pass)) ){
             // show the password warning and disable the signup button
             $('.invalid_pass').show();
-            $('#signup').prop('disabled', true);
+            $('#signup').hide();
+            passOk = false;
         }else{
             // hide the password warning and enable the signup button
             $('.invalid_pass').hide();
-            $('#signup').prop('disabled', false);
+            passOk = true;
+            if(nameOk && surnameOk && emailOk && passOk){
+                $('#signup').show();
+            }
         }
     })
 }
