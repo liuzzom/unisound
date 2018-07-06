@@ -10,9 +10,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
   
   <link rel="icon" type="img/png" href="favicons/favicon-32.png" >
-
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
   <link rel="stylesheet" type="text/css" href="css/home_css/desktop.css">
   
 
@@ -23,6 +20,9 @@
         <header> <!--Logo e immagine-->
          <img id="logo" src="images/unisound_logo.png" alt="UniSound logo">
          <h1 id="sitename">UniSound</h1>
+         <button class="logout">Logout</button>
+         <button class="modify_password">Modifica Password</button>
+         <button class="modify_email">Modifica Email</button>
         </header>
   
         <nav id="nav"><!--Mail di supporto-->
@@ -31,15 +31,26 @@
       </div>
   
       <div class="leftpane">
-          <h1 id="playlist_section">Playlist Section</h1>
+        <h1 id="playlist_section">Playlist Section</h1>
+        <form action="" class="search_form playlist_form">
+          <input type="text" name="playlist_field" id="playlist_field" size="30" placeholder="Cerca Playlist">
+            <button type="submit" id="playlist_search">Cerca</button>
+          </form>
       </div>
 
       <div class="middlepane">
         <h1 id="song_section">Song Section</h1>
+        <form action="" class="search_form song_form">
+          <input type="text" name="song_field" id="song_field" size="50" placeholder="Cerca Canzoni">
+          <button type="submit" id="song_search">Cerca</button>
+        </form>
       </div>
 
       <div class="rightpane">
         <h1 id="friend_section">Friends Section</h1>
+        <input type="text" name="friend_field" id="friend_field" size="30" placeholder="Cerca Amici">
+            <button type="submit" id="friend_search">Cerca</button>
+          </form>
       </div>
 
   <footer id="streaming_section">
@@ -51,5 +62,8 @@
       Your browser does not support the audio element.
     </audio>
   </footer>
+
+  <!-- jQuery library -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 </html>
