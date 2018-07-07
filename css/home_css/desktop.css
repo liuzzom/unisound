@@ -91,13 +91,35 @@ body {
     display: flex;
     width: calc(100% - 80px);
 }
-
+/*Stile per barra che si attiva con Firefox*/
 .firefox_button {
     float: left;
     height: 40px;
     width: 40px;
     background-color: #1b1b1b;
     border: none;
+}
+/*Stile per barra che si attiva con Chrome*/
+.chrome_button {
+    float: left;
+    height: 40px;
+    width: 40px;
+    background-color: white;
+    border: none;
+    border-radius: 100%;
+}
+/*Stile per barra che si attiva con Edge*/
+.edge_button {
+    float: left;
+    height: 40px;
+    width: 40px;
+    background-color: black;
+    border: 1px white;
+    bottom: 0%;
+}
+/*Stile per footer che si attiva in edge*/
+.edge_streaming_section {
+    background-color: black !important;
 }
 
 #song_name, #album, #author {
@@ -160,7 +182,6 @@ body {
     .rightpane {
         display: none;
     }
-    
 }
 
 @media screen and (max-width: 600px) {

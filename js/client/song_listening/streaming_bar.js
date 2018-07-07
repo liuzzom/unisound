@@ -18,6 +18,22 @@ function buttonStyle(){
         $('#prev_song').attr('class', 'firefox_button');
         $('#next_song').attr('class', 'firefox_button');
     }
+
+    if(isChrome){
+        $('#prev_song').attr('class', 'chrome_button');
+        $('#next_song').attr('class', 'chrome_button');
+        $('#prev_song_imgID').attr('src', './images/audio_buttons/previous_black.png');
+        $('#next_song_imgID').attr('src', './images/audio_buttons/next_black.png');
+    }
+
+    if(isEdge){
+        $('#prev_song').attr('class', 'edge_button');
+        $('#next_song').attr('class', 'edge_button');
+        $('#prev_song_imgID').attr('src', './images/audio_buttons/previous.png');
+        $('#next_song_imgID').attr('src', './images/audio_buttons/next.png');
+        $('#streaming_section').attr('class', 'edge_streaming_section');
+        
+    }
 }
 
 $(document).ready(buttonStyle);

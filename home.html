@@ -31,30 +31,30 @@
         </nav>
       </div>
   
-      <div class="leftpane">
+      <div class="leftpane"><!--Pannello sinistro con sezione Playlist-->
         <h1 id="playlist_section">Playlist Section</h1>
-        <form action="" class="search_form playlist_form">
+        <form action="" class="search_form playlist_form"><!--Ricerca Playlist-->
           <input type="text" name="playlist_field" id="playlist_field" placeholder="Cerca Playlist">
             <button type="submit" id="playlist_search" class="search_button">Cerca</button>
           </form>
       </div>
 
-      <div class="middlepane">
+      <div class="middlepane"><!--Pannello centrale con sezione Canzoni-->
         <h1 id="song_section">Song Section</h1>
-        <form action="" class="search_form song_form">
+        <form action="" class="search_form song_form"><!--Ricerca Canzoni-->
           <input type="text" name="song_field" id="song_field" size="50" placeholder="Cerca Canzoni">
           <button type="submit" id="song_search" class="search_button">Cerca</button>
         </form>
       </div>
 
-      <div class="rightpane">
+      <div class="rightpane"><!--Pannello destro con sezione Amici-->
         <h1 id="friend_section">Friends Section</h1>
-        <input type="text" name="friend_field" id="friend_field" placeholder="Cerca Amici">
+        <input type="text" name="friend_field" id="friend_field" placeholder="Cerca Amici"><!--Ricerca Amici-->
             <button type="submit" id="friend_search" class="search_button">Cerca</button>
           </form>
       </div>
 
-  <footer id="streaming_section">
+  <footer id="streaming_section"><!--Streaming Section con barra di riproduzione-->
     <div id="audio_info">
       <span id="song_name">Nome Brano</span>
       <span id="author">Autore Brano</span>
@@ -62,8 +62,8 @@
     </div>
     <div id="audio_buttons">
       <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
-      <button id="prev_song" class=""><img class="prev_song_img" src="./images/audio_buttons/previous.png" alt="Prev"></button>
-      <button id="next_song" class=""><img class="next_song_img" src="./images/audio_buttons/next.png" alt="Next"></button>    
+      <button id="prev_song" class=""><img class="prev_song_img" src="./images/audio_buttons/previous.png" alt="Prev" id="prev_song_imgID"></button>
+      <button id="next_song" class=""><img class="next_song_img" src="./images/audio_buttons/next.png" alt="Next" id="next_song_imgID"></button>    
       <audio id="streaming_bar" controls>
         <source src="./songs/PSY - Napal Baji.mp3" type="audio/mp3">
         Your browser does not support the audio element.
