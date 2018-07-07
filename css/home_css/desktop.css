@@ -79,7 +79,7 @@ body {
 }
 
 #streaming_section {
-    background-color: #2e309e;
+    background-color: #1b1b1b;
     color: whitesmoke;
     position: fixed;
     width: 100%;
@@ -87,13 +87,21 @@ body {
 }
 
 #streaming_bar {
-    background-color: #2e309e;
-    width: 100%;
+    background-color: #1b1b1b;
+    height: 100%;
     display: flex;
+    width: calc(100% - 80px);
+}
+
+.audio_button {
+    float: left;
+    height: 40px;
+    width: 40px;
+    background-color: #1b1b1b;
+    border: none;
 }
 
 #song_name, #album, #author {
-    display: inline;
     margin-left: 1%;
 }
 
