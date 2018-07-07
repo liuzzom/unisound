@@ -14,7 +14,6 @@
   <link rel="icon" type="img/png" href="favicons/favicon-32.png" >
   <link rel="stylesheet" type="text/css" href="css/home_css/desktop.css">
   
-
 </head>
 <body>
 
@@ -63,8 +62,8 @@
     </div>
     <div id="audio_buttons">
       <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
-      <button class="audio_button previous_song"><img src="./images/audio_buttons/previous.png" alt="Prev"></button>
-      <button class="audio_button next_song"><img src="./images/audio_buttons/next.png" alt="Next"></button>    
+      <button id="prev_song" class=""><img class="prev_song_img" src="./images/audio_buttons/previous.png" alt="Prev"></button>
+      <button id="next_song" class=""><img class="next_song_img" src="./images/audio_buttons/next.png" alt="Next"></button>    
       <audio id="streaming_bar" controls>
         <source src="./songs/PSY - Napal Baji.mp3" type="audio/mp3">
         Your browser does not support the audio element.
@@ -74,5 +73,6 @@
 
   <!-- jQuery library -->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/client/song_listening/streaming_bar.js"></script>
 </body>
 </html>

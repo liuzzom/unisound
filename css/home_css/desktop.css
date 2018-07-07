@@ -88,12 +88,11 @@ body {
 
 #streaming_bar {
     background-color: #1b1b1b;
-    height: 100%;
     display: flex;
     width: calc(100% - 80px);
 }
 
-.audio_button {
+.firefox_button {
     float: left;
     height: 40px;
     width: 40px;
