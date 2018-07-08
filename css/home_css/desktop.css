@@ -11,7 +11,12 @@ header {
 nav {
     background-color: #2e4a9e;
 }
-  
+
+.friends_button, .playlist_button {
+    display: none;
+    float: left;
+}
+
 .leftpane {
     width: 20%;
     height: 100%;
@@ -102,11 +107,15 @@ body {
 /*Stile per barra che si attiva con Chrome*/
 .chrome_button {
     float: left;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     background-color: white;
     border: none;
     border-radius: 100%;
+}
+/*Stile per barra che si attiva con Chrome*/
+.chrome_streaming_bar {
+    width: calc(100% - 100px) !important;
 }
 /*Stile per barra che si attiva con Edge*/
 .edge_button {
@@ -114,10 +123,11 @@ body {
     height: 40px;
     width: 40px;
     background-color: black;
-    border: 1px white;
+    border: none;
+    border-radius: 100%;
     bottom: 0%;
 }
-/*Stile per footer che si attiva in edge*/
+/*Stile per footer che si attiva in Edge*/
 .edge_streaming_section {
     background-color: black !important;
 }
@@ -181,6 +191,11 @@ body {
 
     .rightpane {
         display: none;
+    }
+
+    .friends_button, .playlist_button {
+        display: block;
+        margin: 10px 5px;
     }
 }
 
