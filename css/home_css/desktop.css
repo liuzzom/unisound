@@ -172,6 +172,14 @@ body {
     background-color: whitesmoke;
 }
 
+.modify_email:hover, .modify_password:hover, .logout:hover, .search_button:hover{
+    background-color: #4da6ff !important;
+}
+
+.logout:hover {
+    background-color: #ca0e01 !important;
+}
+
 @media screen and (max-width: 1200px) {
     #playlist_field, #friend_field {
         width:50%;
