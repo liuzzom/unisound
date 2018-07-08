@@ -21,8 +21,8 @@
         <header> <!--Logo e immagine-->
          <img id="logo" src="images/unisound_logo.png" alt="UniSound logo">
          <h1 id="sitename"> 
-          <img class="friends_button" src="./images/list_buttons/list_friends.png" alt="FriendsButton"> 
           <img class="playlist_button" src="./images/list_buttons/list_playlist.png" alt="PlaylistButton">
+          <img class="friends_button" src="./images/list_buttons/list_friends.png" alt="FriendsButton"> 
           UniSound</h1>
          <button class="logout">Logout</button>
          <button class="modify_password">Modifica Password</button>
@@ -34,7 +34,7 @@
         </nav>
       </div>
   
-      <div class="leftpane"><!--Pannello sinistro con sezione Playlist-->
+      <div id="leftpane" class="leftpane"><!--Pannello sinistro con sezione Playlist-->
         <h1 id="playlist_section">Playlist Section</h1>
         <form action="" class="search_form playlist_form"><!--Ricerca Playlist-->
           <input type="text" name="playlist_field" id="playlist_field" placeholder="Cerca Playlist">
@@ -50,7 +50,7 @@
         </form>
       </div>
 
-      <div class="rightpane"><!--Pannello destro con sezione Amici-->
+      <div id="rightpane" class="rightpane"><!--Pannello destro con sezione Amici-->
         <h1 id="friend_section">Friends Section</h1>
         <input type="text" name="friend_field" id="friend_field" placeholder="Cerca Amici"><!--Ricerca Amici-->
             <button type="submit" id="friend_search" class="search_button">Cerca</button>
@@ -77,5 +77,6 @@
   <!-- jQuery library -->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="./js/client/song_listening/streaming_bar.js"></script>
+  <script type="text/javascript" src="./js/client/song_listening/menu.js"></script>
 </body>
 </html>
