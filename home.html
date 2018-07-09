@@ -13,6 +13,7 @@
   
   <link rel="icon" type="img/png" href="favicons/favicon-32.png" >
   <link rel="stylesheet" type="text/css" href="css/home_css/desktop.css">
+  <link rel="stylesheet" type="text/css" href="css/home_css/songs.css">
   
 </head>
 <body>
@@ -47,14 +48,39 @@
           <input type="text" name="playlist_field" id="playlist_field" placeholder="Cerca Playlist">
           <button type="submit" id="playlist_search" class="search_button">Cerca</button>
         </form>
+        <ul class="playlists"> <!-- Risultato ricerca playlist-->
+          
+        </ul>
       </div>
 
       <div class="middlepane"><!--Pannello centrale con sezione Canzoni-->
-        <h1 id="song_section">Song Section</h1>
+        <h1 id="song_section">Songs</h1>
         <form action="" class="search_form song_form"><!--Ricerca Canzoni-->
           <input type="text" name="song_field" id="song_field" size="50" placeholder="Cerca Canzoni">
           <button type="submit" id="song_search" class="search_button">Cerca</button>
         </form>
+        <ul class="songs"> <!-- Risultato ricerca brani o contenuto di una playlist-->
+          <li>
+            <div>
+                <span>Nome Brano</span>
+                <span>Autore Brano</span>
+                <span>Album Brano</span>
+            </div>
+            <img src="./images/songs_buttons/play.png" alt="Play">
+            <img src="./images/songs_buttons/plus_black.png" alt="Aggiungi a Playlist">
+            <img src="./images/songs_buttons/minus.png" alt="Rimuovi da Playlist">
+          </li>
+          <li>
+              <div>
+                  <span>Nome Brano</span>
+                  <span>Autore Brano</span>
+                  <span>Album Brano</span>
+              </div>
+              <img src="./images/songs_buttons/play.png" alt="Play">
+              <img src="./images/songs_buttons/plus_black.png" alt="Aggiungi a Playlist">
+              <img src="./images/songs_buttons/minus.png" alt="Rimuovi da Playlist">
+            </li>
+        </ul>
       </div>
 
       <div id="rightpane" class="rightpane"><!--Pannello destro con sezione Amici-->
