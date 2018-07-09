@@ -1,4 +1,4 @@
-    //Provvisorio
+
 function osDetect(){
     // This script sets OSName variable as follows:
     // "Windows"    for all versions of Windows
