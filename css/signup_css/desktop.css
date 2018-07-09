@@ -84,3 +84,9 @@ nav {
     border-color: red;
     background-color: palevioletred;
 }
+
+#signup {
+    background-color: #143db8;
+    border: none;
+    color: whitesmoke;
+}
