@@ -1,0 +1,246 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+header {
+    background-color: #2e309e;
+}
+
+nav {
+    background-color: #2e4a9e;
+}
+
+.friends_button, .playlist_button {
+    display: none;
+    float: left;
+}
+
+.leftpane {
+    width: 20%;
+    height: 100%;
+    float: left;
+    background-color: #2e309e;
+    border-collapse: collapse;
+}
+  
+.middlepane {
+    width: 60%;
+    height: 100%;
+    float: left;
+    background-color: #b3d9ff;
+    border-collapse: collapse;
+    text-align: center;
+}
+  
+.rightpane {
+    width: 20%;
+    height: 100%;
+    position: relative;
+    float: right;
+    background-color: #2e309e;
+    border-collapse: collapse;
+}
+  
+body {
+    background-color: #b3d9ff;
+}
+
+#logo {
+    height: 100px;
+    width: 100px;
+    float: left;
+}
+
+#sitename {
+    display: inline-block;
+    color: whitesmoke;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#support {
+    text-decoration: none;
+    color: whitesmoke;
+    
+}
+
+#playlist_section {
+    display: inline-block;
+    color: whitesmoke;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#song_section {
+    display: inline-block;
+    color: whitesmoke;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#friend_section {
+    display: inline-block;
+    color: whitesmoke;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#streaming_section {
+    background-color: #1b1b1b;
+    color: whitesmoke;
+    position: fixed;
+    width: 100%;
+    bottom: 0px; 
+}
+
+#streaming_bar {
+    background-color: #1b1b1b;
+    display: flex;
+    width: calc(100% - 80px);
+}
+/*Stile per barra che si attiva con Firefox*/
+.firefox_button {
+    float: left;
+    height: 40px;
+    width: 40px;
+    background-color: #1b1b1b;
+    border: none;
+}
+/*Stile per barra che si attiva con Chrome*/
+.chrome_button {
+    float: left;
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    border: none;
+    border-radius: 100%;
+}
+/*Stile per barra che si attiva con Chrome*/
+.chrome_streaming_bar {
+    width: calc(100% - 100px) !important;
+}
+/*Stile per barra che si attiva con Edge*/
+.edge_button {
+    float: left;
+    height: 40px;
+    width: 40px;
+    background-color: black;
+    border: none;
+    border-radius: 100%;
+    bottom: 0%;
+}
+/*Stile per footer che si attiva in Edge*/
+.edge_streaming_section {
+    background-color: black !important;
+}
+
+#song_name, #album, #author {
+    margin-left: 1%;
+}
+
+.modify_email, .modify_password, .logout {
+    border-radius: 4px;
+    margin-right: 0.5%;
+    border: none;
+    background-color: #b3d9ff;
+    padding: 4px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.logout {
+    background-color: #f44336;
+}
+
+.search_button, .playlist_submit_button {
+    border-radius: 4px;
+    border: none;
+    background-color: #b3d9ff;    
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#playlist_field, #friend_field, #new_playlist_name {
+    margin-left: 2%;
+    width:70%;
+    background-color: #b3d9ff;
+    color: black;
+}
+
+#playlist_field, #friend_field, #song_field, #new_playlist_name {
+    border: none;
+    border-radius: 4px;
+}
+
+.new_playlist {
+    display: none;
+    margin-bottom: 2%;
+}
+
+.invalid_name {
+    width: 80%;
+    margin-left: 2%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: red;
+    background-color: palevioletred;
+}
+
+#song_field, #song_search {
+    background-color: whitesmoke;
+}
+
+.modify_email:hover, .modify_password:hover, .logout:hover, .search_button:hover, .playlist_submit_button:hover {
+    background-color: #4da6ff !important;
+}
+
+.logout:hover {
+    background-color: #ca0e01 !important;
+}
+
+@media screen and (max-width: 1200px) {
+    #playlist_field, #friend_field {
+        width:50%;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .leftpane {
+        display: none;
+    }
+
+    .middlepane {
+        width: 100%;
+        float: none;
+        text-align: center;
+    }
+
+    .rightpane {
+        display: none;
+    }
+
+    .friends_button, .playlist_button {
+        display: block;
+        margin: 10px 5px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #logo {
+        display: none;
+    }
+
+    #sitename {
+        width: 100%;
+    }
+
+    .logout {
+        margin-left: 2%;
+    }
+
+    #song_field {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #sitename {
+        text-align: center;
+    }
+}

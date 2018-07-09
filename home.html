@@ -24,9 +24,9 @@
           <img class="playlist_button" src="./images/list_buttons/list_playlist.png" alt="PlaylistButton">
           <img class="friends_button" src="./images/list_buttons/list_friends.png" alt="FriendsButton"> 
           UniSound</h1>
-         <button class="logout">Logout</button>
-         <button class="modify_password">Modifica Password</button>
-         <button class="modify_email">Modifica Email</button>
+         <button class="logout" title="Esci da UniSound">Logout</button>
+         <button class="modify_password" title="Modifica la tua Password">Modifica Password</button>
+         <button class="modify_email" title="Modifica la tue Email">Modifica Email</button>
         </header>
   
         <nav id="nav"><!--Mail di supporto-->
@@ -35,11 +35,18 @@
       </div>
   
       <div id="leftpane" class="leftpane"><!--Pannello sinistro con sezione Playlist-->
-        <h1 id="playlist_section">Playlist Section</h1>
+        <h1 id="playlist_section">Playlist Section
+          <img class="new_playlist_btn" src="./images/plus_white.png" alt="New Playlist Button" title="Crea una nuova playlist"> <!-- Pulsante Nuova Playlist-->
+        </h1>
+        <form action="" class="new_playlist"><!--Form inserimento nuova Playlist-->
+          <input type="text" name="new_playlist_name" id="new_playlist_name" placeholder="Nome della nuova Playlist" autocomplete="off">
+          <button type="submit" id="new_playlist_submit" class="playlist_submit_button">Crea</button>
+          <p class="invalid_name">Nome vuoto o già presente</p>
+        </form>
         <form action="" class="search_form playlist_form"><!--Ricerca Playlist-->
           <input type="text" name="playlist_field" id="playlist_field" placeholder="Cerca Playlist">
-            <button type="submit" id="playlist_search" class="search_button">Cerca</button>
-          </form>
+          <button type="submit" id="playlist_search" class="search_button">Cerca</button>
+        </form>
       </div>
 
       <div class="middlepane"><!--Pannello centrale con sezione Canzoni-->
@@ -77,6 +84,7 @@
   <!-- jQuery library -->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="./js/client/song_listening/streaming_bar.js"></script>
-  <script type="text/javascript" src="./js/client/song_listening/menu.js"></script>
+  <script type="text/javascript" src="./js/client/menu/menu.js"></script>
+  <script type="text/javascript" src="./js/client/playlist_management/new_playlist.js"></script>
 </body>
 </html>
