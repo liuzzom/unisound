@@ -27,7 +27,7 @@ nav {
     border-collapse: collapse;
 }
   
-/* pannnello canzoni*/
+/* pannello canzoni*/
 .middlepane {
     width: 60%;
     height: 100%;
@@ -219,6 +219,10 @@ body {
 /* effetto passaggio del mouse*/
 .logout:hover {
     background-color: #ca0e01 !important;
+}
+/* Per corretta visualizzazione su sistemi linux*/
+.linux_visual {
+    display: flow-root;
 }
 
 @media screen and (max-width: 1200px) {

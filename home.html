@@ -14,7 +14,9 @@
   <link rel="icon" type="img/png" href="favicons/favicon-32.png" >
   <link rel="stylesheet" type="text/css" href="css/home_css/desktop.css">
   <link rel="stylesheet" type="text/css" href="css/home_css/songs.css">
-  
+  <link rel="stylesheet" type="text/css" href="css/home_css/playlist.css">
+  <link rel="stylesheet" type="text/css" href="css/home_css/friends.css">
+
 </head>
 <body>
 
@@ -31,12 +33,12 @@
         </header>
   
         <nav id="nav"><!--Mail di supporto-->
-          <a  id="support" href="mailto://unisoundsup@gmail.com" title="Inviaci una mail">Supporto</a>
+          <a  id="support" href="mailto:unisoundsup@gmail.com" title="Inviaci una mail">Supporto</a>
         </nav>
       </div>
   
       <div id="leftpane" class="leftpane"><!--Pannello sinistro con sezione Playlist-->
-        <h1 id="playlist_section">Playlist Section
+        <h1 id="playlist_section">Playlist
           <img class="new_playlist_btn" src="./images/plus_white.png" alt="New Playlist Button" title="Crea una nuova playlist"> <!-- Pulsante Nuova Playlist-->
         </h1>
         <form action="" class="new_playlist"><!--Form inserimento nuova Playlist-->
@@ -49,7 +51,18 @@
           <button type="submit" id="playlist_search" class="search_button">Cerca</button>
         </form>
         <ul class="playlists"> <!-- Risultato ricerca playlist-->
-          
+          <li>
+            <div>
+              <span>Nome Playlist</span>
+            </div>
+            <img src="./images/plus_white.png" alt="Add Playlist">
+          </li>
+          <li>
+            <div>
+              <span>Nome Playlist</span>
+            </div>
+            <img src="./images/plus_white.png" alt="Add Playlist">
+          </li>
         </ul>
       </div>
 
@@ -84,10 +97,27 @@
       </div>
 
       <div id="rightpane" class="rightpane"><!--Pannello destro con sezione Amici-->
-        <h1 id="friend_section">Friends Section</h1>
+        <h1 id="friend_section">Friends</h1>
         <input type="text" name="friend_field" id="friend_field" placeholder="Cerca Amici"><!--Ricerca Amici-->
             <button type="submit" id="friend_search" class="search_button">Cerca</button>
           </form>
+          <ul class="friends"> <!-- Risultato ricerca playlist-->
+            <li>
+              <div>
+                <span>Lillo Amico</span>
+              </div>
+              <img src="./images/friends_buttons/follow.png" alt="Follow Profile">
+              <img src="./images/friends_buttons/unfollow.png" alt="Unfollow Profile">
+            </li>
+            <li>
+              <div>
+                <span>Gerlando Amico</span>
+              </div>
+              <img src="./images/friends_buttons/follow.png" alt="Follow Profile">
+              <img src="./images/friends_buttons/unfollow.png" alt="Unfollow Profile">
+            </li>
+          </ul>
+        </div>
       </div>
 
   <footer id="streaming_section"><!--Streaming Section con barra di riproduzione-->
@@ -109,6 +139,7 @@
 
   <!-- jQuery library -->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/client/os_detection.js"></script>
   <script type="text/javascript" src="./js/client/song_listening/streaming_bar.js"></script>
   <script type="text/javascript" src="./js/client/menu/menu.js"></script>
   <script type="text/javascript" src="./js/client/playlist_management/new_playlist.js"></script>
