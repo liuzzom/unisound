@@ -268,10 +268,9 @@ body {
     #song_field {
         width: 70%;
     }
-}
 
-@media screen and (max-width: 400px) {
-    #sitename {
-        text-align: center;
+    .app_name {
+        margin-left: 5px;
     }
 }
+

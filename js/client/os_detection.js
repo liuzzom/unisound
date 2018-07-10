@@ -1,4 +1,3 @@
-
 function osDetect(){
     // This script sets OSName variable as follows:
     // "Windows"    for all versions of Windows
@@ -17,3 +16,5 @@ function osDetect(){
         $('header').attr('class', 'linux_visual');
     }
 }
+
+$(document).ready(osDetect);

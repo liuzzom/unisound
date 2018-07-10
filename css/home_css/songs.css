@@ -1,6 +1,7 @@
 /* lista delle canzoni che verrà riempita tramite js*/
 .songs {
     list-style-type: none;
+    padding: 0;
 }
 
 /* oggetti della lista delle canzoni -> canzoni, pulsanti ed eventuali lite di playlist */
