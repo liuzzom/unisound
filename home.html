@@ -55,13 +55,13 @@
             <div>
               <span>Nome Playlist</span>
             </div>
-            <img src="./images/plus_white.png" alt="Add Playlist">
+            <img src="./images/delete_white.png" alt="Delete Playlist">
           </li>
           <li>
             <div>
               <span>Nome Playlist</span>
             </div>
-            <img src="./images/plus_white.png" alt="Add Playlist">
+            <img src="./images/delete_white.png" alt="Delete Playlist">
           </li>
         </ul>
       </div>
@@ -80,8 +80,30 @@
                 <span>Album Brano</span>
             </div>
             <img src="./images/songs_buttons/play.png" alt="Play">
-            <img src="./images/songs_buttons/plus_black.png" alt="Aggiungi a Playlist">
-            <img src="./images/songs_buttons/minus.png" alt="Rimuovi da Playlist">
+            <img src="./images/songs_buttons/plus_black.png" class="add_test" alt="Aggiungi a Playlist">
+            <img src="./images/songs_buttons/minus.png" class="remove_test" alt="Rimuovi da Playlist">
+            
+            <ul class="add_to"> <!-- Playlist a cui aggiungere il brano-->
+              <li>
+                <span>Playlist 1</span>
+                <img src="./images/songs_buttons/plus_black.png" alt="Aggiungi a Playlist">
+              </li>
+              <li>
+                <span>Playlist 2</span>
+                <img src="./images/songs_buttons/plus_black.png" alt="Aggiungi a Playlist">
+              </li>
+            </ul>
+            
+            <ul class="remove_from"> <!-- Playlist da cui rimuovere il brano-->
+              <li>
+                <span>Playlist 3</span>
+                <img src="./images/songs_buttons/minus.png" alt="Rimuovi da Playlist">
+              </li>
+              <li>
+                <span>Playlist 4</span>
+                <img src="./images/songs_buttons/minus.png" alt="Rimuovi da Playlist">
+              </li>
+            </ul>
           </li>
           <li>
               <div>
@@ -143,5 +165,6 @@
   <script type="text/javascript" src="./js/client/song_listening/streaming_bar.js"></script>
   <script type="text/javascript" src="./js/client/menu/menu.js"></script>
   <script type="text/javascript" src="./js/client/playlist_management/new_playlist.js"></script>
+  <script type="text/javascript" src="./js/client/playlist_management/add_or_remove_song.js"></script>
 </body>
 </html>
