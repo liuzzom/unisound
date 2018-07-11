@@ -20,16 +20,17 @@
 </head>
 <body>
 
-    <div id="headcontainer">
-        <header> <!--Logo e immagine-->
+    <div id="headcontainer"> <!-- Logo, nome sito e pulsanti gestione profilo-->
+        <header> <!--Logo e nome sito-->
          <img id="logo" src="images/unisound_logo.png" alt="UniSound logo">
          <h1 id="sitename"> 
           <img class="playlist_button" src="./images/list_buttons/list_playlist.png" alt="PlaylistButton">
           <img class="friends_button" src="./images/list_buttons/list_friends.png" alt="FriendsButton"> 
           <span class="app_name">UniSound</span></h1>
-         <button class="logout" title="Esci da UniSound">Logout</button>
-         <button class="modify_password" title="Modifica la tua Password">Modifica Password</button>
-         <button class="modify_email" title="Modifica la tue Email">Modifica Email</button>
+          <!-- Pulsanti gestione profilo-->
+         <button class="logout" title="Torna al Login" onclick="window.location.href='./login.html'">Logout</button>
+         <button class="modify_password" title="Modifica la tua Password" onclick="window.location.href='./modifypassword.html'">Modifica Password</button>
+         <button class="modify_email" title="Modifica la tue Email" onclick="window.location.href='./modifyemail.html'">Modifica Email</button>
         </header>
   
         <nav id="nav"><!--Mail di supporto-->

@@ -220,6 +220,7 @@ body {
 .logout:hover {
     background-color: #ca0e01 !important;
 }
+
 /* Per corretta visualizzazione su sistemi linux*/
 .linux_visual {
     display: flow-root;
