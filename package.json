@@ -1,0 +1,19 @@
+{
+  "name": "unisound",
+  "version": "1.0.0",
+  "description": "Applicazione ispirata a Spotify creata per il corso di Programmazione Web e Mobile",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liuzzom/unisound.git"
+  },
+  "author": "Augello Liuzzo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liuzzom/unisound/issues"
+  },
+  "homepage": "https://github.com/liuzzom/unisound#readme"
+}
