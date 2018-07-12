@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/liuzzom/unisound/issues"
   },
-  "homepage": "https://github.com/liuzzom/unisound#readme"
+  "homepage": "https://github.com/liuzzom/unisound#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
