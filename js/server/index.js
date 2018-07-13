@@ -1,10 +1,9 @@
 var express = require('express')
 var app = express();
 
-app.use(express.static('/'));
+app.use(express.static('./'));
 
-module.exports.start = function() {
-    app.listen(3000, function() {
-      console.log('Server started on port 3000');
-    });
-}
+app.listen(3000, function(error){
+  if(error) throw error;
+  console.log("server in ascolto sulla porta 3000");
+});
