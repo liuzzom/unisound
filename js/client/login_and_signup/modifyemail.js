@@ -4,14 +4,14 @@ function validation(){
     $('#submit').hide();
     $('#new_email').on('keyup', function(){
         var mail = $('#new_email').val();
-        if( mail == "" || !(/^[A-za-z0-9\.]+@[A-za-z]+\.[A-za-z]+$/.test(mail)) ){
+        if( !mail || !(/^[A-Za-z0-9\.\-_]+@[A-Za-z0-9\.\-_]+\.[A-Za-z]+$/.test(mail)) ){
             // show the email warning and disable the submit button 
             $('.invalid_mail').show();
-            $('#submit').hide();
+            $('#submit').hide(); // disable()?
         }else{
             // hide the email warning and enable the submit button
             $('.invalid_mail').hide();
-            $('#submit').show();
+            $('#submit').show(); // enable()?
         }
     });
 }
