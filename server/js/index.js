@@ -16,12 +16,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 
+// frammenti di path utili
+var prev_dir = '..';
+var client = 'client';
+
 // messa in ascolto sulla porta specificata
 app.listen(port, () => console.log('Server in ascolto sulla porta ' + port));
 
 // richiesta della main page
 app.get('/', function(request, response){
-  response.sendFile(path.join(__dirname, '../', '../', 'index.html')); 
+  response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'index.html')); 
   console.log("redirecting sulla login page");
 });
 
@@ -31,4 +35,4 @@ app.get('/home.html', function(request, response){
   console.log("redirecting sulla login page");
 });
 
-app.use(express.static('./'));
+app.use(express.static('client'));
