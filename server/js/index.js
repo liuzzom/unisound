@@ -21,13 +21,13 @@ app.listen(port, () => console.log('Server in ascolto sulla porta ' + port));
 
 // richiesta della main page
 app.get('/', function(request, response){
-  response.sendFile(path.resolve('index.html'));
+  response.sendFile(path.join(__dirname, '../', '../', 'index.html')); 
   console.log("redirecting sulla login page");
 });
 
 // to do: in base al parsing dei cookie dare la home page o la login page
 app.get('/home.html', function(request, response){
-  response.sendFile(path.resolve('index.html'));
+  response.sendFile(path.join(__dirname, '../', '../', 'index.html')); 
   console.log("redirecting sulla login page");
 });
 
