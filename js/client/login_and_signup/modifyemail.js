@@ -1,17 +1,17 @@
 function validation(){
-    // initially hide the email warning message and disable the submit button
+    // initially hide the email warning message and hide the submit button
     $('.invalid_mail').hide();
     $('#submit').hide();
     $('#new_email').on('keyup', function(){
         var mail = $('#new_email').val();
         if( !mail || !(/^[A-Za-z0-9\.\-_]+@[A-Za-z0-9\.\-_]+\.[A-Za-z]+$/.test(mail)) ){
-            // show the email warning and disable the submit button 
+            // show the email warning and hide the submit button 
             $('.invalid_mail').show();
-            $('#submit').hide(); // disable()?
+            $('#submit').hide(); 
         }else{
-            // hide the email warning and enable the submit button
+            // hide the email warning and show the submit button
             $('.invalid_mail').hide();
-            $('#submit').show(); // enable()?
+            $('#submit').show(); 
         }
     });
 }

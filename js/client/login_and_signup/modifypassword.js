@@ -1,15 +1,15 @@
 function validate(){
-    // initially hide the password warning message and disable the submit button
+    // initially hide the password warning message and hide the submit button
     $('.invalid_password').hide();
     $('#submit').hide();
     $('#new_password').on('keyup', function(){
         var pass = $(this).val();
         if( pass.length < 8 || !hasUpperCase(pass) || !(/\d/.test(pass)) ){
-            // show the password warning and disable the submit button
+            // show the password warning and hide the submit button
             $('.invalid_password').show();
             $('#submit').hide();
         }else{
-            // hide the password warning and enable the submit button
+            // hide the password warning and show the submit button
             $('.invalid_password').hide();
             $('#submit').show();
         }
