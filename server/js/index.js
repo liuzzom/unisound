@@ -9,6 +9,22 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 
+// MySQL connection
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host : 'localhost',
+  port : 3306,
+  user : 'gruppo5_admin',
+  password : 'gruppo5',
+  database : 'gruppo5'
+});
+
+// connessione al database
+connection.connect(function(error){
+  if (error) throw new Error('MYSQL: Error while connecting');
+  console.log("Connesso al DB");
+});
+
 // numero di porta connessione TCP
 var port = 8080;
 
