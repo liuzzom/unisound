@@ -42,7 +42,7 @@ function validation(){
 
     $('#email').on('keyup', function(){
         var mail = $('#email').val();
-        if( mail == "" || !(/^[A-za-z0-9\.]+@[A-za-z]+\.[A-za-z]+$/.test(mail)) ){
+        if( mail == "" || !(/^[A-Za-z0-9\.\-_]+@[A-Za-z0-9\.\-_]+\.[A-Za-z]+$/.test(mail)) ){
             // show the email warning and hide the signup button
             $('.invalid_mail').show();
             $('#signup').hide();
@@ -85,4 +85,12 @@ function hasUpperCase(password){
         }
     }
     return false;
+}
+
+// fa l'hash md5 (possibilità di utilizzare aes) della password
+function encrypt() {
+    var pass=document.getElementById('password').value;
+    var hash = CryptoJS.MD5(pass);
+    document.getElementById('password').value=hash;
+    return true;
 }

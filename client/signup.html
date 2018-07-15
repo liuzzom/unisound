@@ -32,7 +32,7 @@
     </div>
 
     <section id="formcontainer"> <!--Sezione che contiene il form-->
-      <form onsubmit="" method="post">
+      <form action="./index.html" method="post">
       	<div id="nameid">
       		<label id="formlabel" for="name">Nome</label><br>
           <input type="text" name="name" id="name" autocomplete="off" placeholder="Inserisci nome" size="50" required><br>
@@ -64,7 +64,7 @@
           </div>
           <br>  
         </div>
-        <button type="signup" id="signup">Registrati</button>
+        <button type="signup" id="signup" onclick="return encrypt()">Registrati</button>
 
       </form>
 
@@ -76,5 +76,8 @@
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/login_and_signup/signup.js"></script>
+  <!-- librerie usate per l'hash delle password-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+  <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
 </body>
 </html>
