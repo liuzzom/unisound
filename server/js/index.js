@@ -3,10 +3,11 @@
  * @author Federico Augello
  */
 
-// import dei moduli
+// import dei moduli per l'utilizzo di express, body-parser, path e cookie-parser
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const app = express();
 
 // MySQL connection
@@ -33,11 +34,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 
+// utilizzo dei cookie 
+app.use(cookieParser());
+
 // frammenti di path utili
 var prev_dir = '..';
 var client = 'client';
 
-// messa in ascolto sulla porta specificata
+// messa in ascolto sulla porta specificata. Viene eseguita prima dell'esecuzione della connessione al DB
 app.listen(port, () => console.log('Server in ascolto sulla porta ' + port));
 
 // richiesta get della main page
