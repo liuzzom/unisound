@@ -94,3 +94,26 @@ function encrypt() {
     document.getElementById('password').value=hash;
     return true;
 }
+
+// invio dei dati e gestione della risposta
+$('#signup_form').on('submit', function(event){
+    event.preventDefault();
+    encrypt();
+    console.log("click ricevuto");
+
+    var user = {
+        fisrt_name : $('#name').val(),
+        last_name : $('#surname').val(),
+        email : $('#email').val(),
+        password : $('#password').val(),
+    };
+
+    // richiesta post al server
+    $.post('/signup', user)
+        .done(function(){
+            window.location.href = '/index.html';
+        })
+        .fail(function(){
+            alert('error');
+        });
+});

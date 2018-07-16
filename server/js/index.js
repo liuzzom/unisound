@@ -80,20 +80,20 @@ app.get('/signup.html', function(request, response){
   console.log("redirecting sulla signup page");
 });
 
-// richiesta post alla schermata home
-// invocata durante il login
-app.post('/home.html', function(request, response){
+// handler della richiesta post relativa al login
+app.post('/login', function(request, response){
   console.log("ricevuta post alla schermata di home");
   console.log(request.body);
   response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'home.html')); 
   console.log("redirecting sulla home");
 });
 
-app.post('/index.html', function(request, response){
+// handler della richiesta post relativa alla registrazione
+app.post('/signup', function(request, response){
   console.log("ricevuta post alla schermata di home");
   console.log(request.body);
   response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'index.html'));
-  console.log("redirecting sulla root"); 
+  console.log("redirecting sulla login page"); 
 });
 
 // gestione dei file statici (html, css, js, ecc...)
