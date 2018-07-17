@@ -10,6 +10,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const app = express();
 
+// import dei moduli contenenti le query al db
+const users_db = require('./users_db.js');
+
 // MySQL connection
 var mysql = require('mysql');
 var connection = mysql.createConnection({
@@ -82,7 +85,7 @@ app.get('/signup.html', function(request, response){
 
 // handler della richiesta post relativa al login
 app.post('/login', function(request, response){
-  console.log("ricevuta post alla schermata di home");
+  console.log("ricevuta post dal form di login");
   console.log(request.body);
   response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'home.html')); 
   console.log("redirecting sulla home");
@@ -90,10 +93,20 @@ app.post('/login', function(request, response){
 
 // handler della richiesta post relativa alla registrazione
 app.post('/signup', function(request, response){
-  console.log("ricevuta post alla schermata di home");
+  console.log("ricevuta post del form di registrazione");
   console.log(request.body);
-  response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'index.html'));
-  console.log("redirecting sulla login page"); 
+
+  // dati ricevuti nella richiesta
+  var fisrt_name = request.body.fisrt_name;
+  var last_name = request.body.last_name;
+  var email = request.body.email;
+  var password = request.body.password;
+
+  /**
+   * @description Query al db per l'aggiunta dell'utente e invio risposta al client
+   * La defininizione della query si trova nel file users_db
+   */
+  users_db.addUser(response, connection, fisrt_name, last_name, email, password);
 });
 
 // gestione dei file statici (html, css, js, ecc...)
