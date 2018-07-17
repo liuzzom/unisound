@@ -21,7 +21,7 @@ module.exports = {
                 console.log("mail inserita già utilizzata");
                 // codice di stato 400 : Bad Request
                 response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
-                response.end("ERROR: l'indirizzo " + email + " è stato già usato");
+                response.end("ERRORE: l'indirizzo " + email + " è stato già usato");
                 return;
             }
 
@@ -33,7 +33,7 @@ module.exports = {
                 if(error){
                     console.log("errore nella query di inserimento")
                     response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
-                    response.end("ERROR: errore durante la query di inserimento nel db");
+                    response.end("ERRORE: errore durante la query di inserimento nel db");
                     return;
                 }
 
@@ -42,6 +42,42 @@ module.exports = {
                 response.redirect('index.html');
             });
         });
-    }
+    },
+
+    /**
+     * @author Antonino Mauro Liuzzo
+     * @description gestisce la richiesta di login
+     * i console log vengono utilizzati per monitorare l'andamento del programma dal server
+     */
+    login : function(response, connection, email, password){
+        // verifichiamo se le credenziali sono corrispondono a quelle di un utente presente 
+        connection.query('SELECT * FROM users \
+        WHERE email = "' + email + '" AND password = "' + password + '";', function(error, result, fields){
+            console.log("ottenute le informazioni relative agli utenti");
+            console.log(result[0]);
+            
+            if(error){
+                console.log("errore nella query ottenimento info");
+                // codice di stato 500 : Internal Server Error
+                response.sendStatus(500);
+                return;
+            }    
+
+            // se il primo campo è vuoto non ci sono utenti che corrispondono alle credenziali
+            if(result[0] === undefined){
+                console.log("mail e password non valide");
+                // codice di stato 400 : Bad Request
+                response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                response.end("ERRORE: email e password non valide");
+                return;
+            }
+
+            // invio di una risposta "affermativa"
+            console.log("login eseguito con successo");
+            response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+            response.end("login eseguito con successo");
+            return;
+        });
+    }, 
     
 }

@@ -51,16 +51,30 @@ app.listen(port, () => console.log('Server in ascolto sulla porta ' + port));
 // richiesta get della main page
 app.get('/', function(request, response){
   console.log("ricevuta get alla root");
-  response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'index.html')); 
-  console.log("redirecting sulla login page");
+  if(request.cookies.email){
+    console.log("cookie rilevati");
+    response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'home.html')); 
+    console.log("redirecting sulla home page");
+  }else{
+    console.log("cookie non rilevati");
+    response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'index.html')); 
+    console.log("redirecting sulla login page");
+  }
 });
 
 // richiesta get della schermata home
 // to do: in base al parsing dei cookie dare la home page o la login page
 app.get('/home.html', function(request, response){
   console.log("ricevuta get alla home");
-  response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'index.html')); 
-  console.log("redirecting sulla login page");
+  if(request.cookies.email){
+    console.log("cookie rilevati");
+    response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'home.html')); 
+    console.log("redirecting sulla home page");
+  }else{
+    console.log("cookie non rilevati");
+    response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'index.html')); 
+    console.log("redirecting sulla login page");
+  }
 });
 
 // richiesta get della schermata modifica password
@@ -79,7 +93,7 @@ app.get('/modifyemail.html', function(request, response){
 
 // richiesta get della schermata di registrazione
 app.get('/signup.html', function(request, response){
-  console.log("ricevuta get alla schermata di resgistrazione");
+  console.log("ricevuta get alla schermata di registrazione");
   response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'signup.html')); 
   console.log("redirecting sulla signup page");
 });
@@ -88,8 +102,16 @@ app.get('/signup.html', function(request, response){
 app.post('/login', function(request, response){
   console.log("ricevuta post dal form di login");
   console.log(request.body);
-  response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'home.html')); 
-  console.log("redirecting sulla home");
+
+  // dati ricevuti nella richiesta
+  var email = request.body.email;
+  var password = request.body.password;
+
+   /**
+   * @description Query al db per la verifica dei dati e invio risposta al client
+   * La defininizione della query si trova nel file users_db
+   */
+  users_db.login(response, connection, email, password);
 });
 
 // handler della richiesta post relativa alla registrazione

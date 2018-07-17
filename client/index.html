@@ -34,7 +34,7 @@
 
 
     <section id="formcontainer"> <!--Sezione che contiene il form-->
-      <form action="./home.html" method="post">
+      <form id="login_form">
         <div id="username">
           <label for="email" id="formlabel">E-mail</label><br>
           <input type="email" name="email" id="email" autocomplete="off" placeholder="Inserisci l'indirizzo e-mail" size="50" required><br>
@@ -45,7 +45,7 @@
           <label for="password" id="formlabel">Password</label><br>
           <input type="password" name="password" id="password" autocomplete="off" placeholder="Inserisci la password" size="50" required><br><br>  
         </div>
-        <button type="submit" id="submit" onclick="return encrypt()">Accedi</button>        
+        <button type="submit" id="submit" >Accedi</button>        
       </form>
 
       <div class="registrazione">
@@ -64,5 +64,7 @@
   <!-- librerie usate per l'hash delle password-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
   <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+  <!-- libreria per la gestione dei cookie con sintassi jQuery-->
+  <script src="./jquery-cookie-master/src/jquery.cookie.js"></script>
 </body>
 </html>

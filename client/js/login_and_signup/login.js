@@ -45,3 +45,25 @@ function encrypt() {
     document.getElementById('password').value=hash;
     return true;
 }
+
+$('#login_form').on('submit', function(event){
+    event.preventDefault();
+    encrypt();
+
+    var user = {
+        email : $('#email').val(),
+        password : $('#password').val(),
+    };
+
+    // invio della richiesta post
+    $.post('/login', user).done(function(){
+        // Create expiring cookie (2 days), valid across entire site (commento preso dal file readme)
+        // libreria utilizzata https://github.com/carhartl/jquery-cookie
+        $.cookie('email', $('#email').val(), { expires: 2, path: '/' });
+        console.log("cookie settato");
+        $.cookie();
+        window.location.href = './home.html';
+    }).fail(function(){
+        alert("ERRORE: verifica le credenziali e riprova");
+    });
+});

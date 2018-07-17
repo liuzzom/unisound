@@ -99,8 +99,8 @@ function encrypt() {
 $('#signup_form').on('submit', function(event){
     event.preventDefault();
     encrypt();
-    console.log("click ricevuto");
 
+    
     var user = {
         fisrt_name : $('#name').val(),
         last_name : $('#surname').val(),
@@ -111,7 +111,7 @@ $('#signup_form').on('submit', function(event){
     // richiesta post al server
     $.post('/signup', user)
         .done(function(){
-            window.location.href = '/index.html';
+            window.location.href = './index.html';
         })
         .fail(function(){
             alert('ERRORE: Verifica i dati inseriti e riprova');
