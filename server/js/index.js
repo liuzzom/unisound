@@ -15,6 +15,7 @@ const users_db = require('./users_db.js');
 
 // MySQL connection
 var mysql = require('mysql');
+// connection viene utilizzato per la connesione al db e per le query
 var connection = mysql.createConnection({
   host : 'localhost',
   port : 3306,

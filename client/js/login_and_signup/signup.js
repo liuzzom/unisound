@@ -114,6 +114,6 @@ $('#signup_form').on('submit', function(event){
             window.location.href = '/index.html';
         })
         .fail(function(){
-            alert('error');
+            alert('ERRORE: Verifica i dati inseriti e riprova');
         });
 });
