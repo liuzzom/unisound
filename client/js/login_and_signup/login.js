@@ -59,9 +59,8 @@ $('#login_form').on('submit', function(event){
     $.post('/login', user).done(function(){
         // Create expiring cookie (2 days), valid across entire site (commento preso dal file readme)
         // libreria utilizzata https://github.com/carhartl/jquery-cookie
+        // lato server, i cookie vengono utilizzati per vedere se un utente ha fatto il login oppure no
         $.cookie('email', $('#email').val(), { expires: 2, path: '/' });
-        console.log("cookie settato");
-        $.cookie();
         window.location.href = './home.html';
     }).fail(function(){
         alert("ERRORE: verifica le credenziali e riprova");

@@ -72,6 +72,17 @@ module.exports = {
                 return;
             }
 
+            // le credenziali sono corrette, si setta l'utente definito da esse come utente online
+            console.log(result[0].user_id);
+            connection.query('UPDATE users SET `online` = 1 WHERE (`user_id` = ' + result[0].user_id + ');', function(error, result, fields){
+                if(error){
+                    console.log("errore nella query di messa online");
+                    // codice di stato 500 : Internal Server Error
+                    response.sendStatus(500);
+                    return;
+                }
+            });
+            
             // invio di una risposta "affermativa"
             console.log("login eseguito con successo");
             response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
