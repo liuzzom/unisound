@@ -159,6 +159,22 @@ app.get('/logout', function(request, response){
   users_db.logout(response, connection, email); 
 });
 
+/**
+ * @author Antonino Liuzzo Mauro
+ * @author Federico Augello
+ * @description handler della richiesta post relativa alla modifica della password
+ */
+app.post('/modifypassword', function(request, response){
+  console.log("ricevuta post del form di registrazione");
+  console.log(request.body);
+
+  var email = request.cookies.email;
+  var old_pass = request.body.old_pass;
+  var new_pass = request.body.new_pass;
+
+  // modifica della password e invio risposta al client
+  users_db.modifypassword(response, connection, email, old_pass, new_pass);
+});
 
 // gestione dei file statici (html, css, js, ecc...)
 app.use(express.static('client'));
