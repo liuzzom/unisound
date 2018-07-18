@@ -32,7 +32,7 @@
     </div>
 
     <section id="formcontainer"> <!--Sezione che contiene il form-->
-      <form onsubmit="return validate()" method="post">
+      <form id="modifyemail_form">
         <div id="oldusername">
           <label for="email" id="formlabel">Vecchio indirizzo e-mail</label><br>
           <input type="email" name="old_email" id="old_email" placeholder="Inserisci il vecchio indirizzo e-mail" size="50" required><br><br>  
@@ -53,5 +53,7 @@
   <!-- jQuery library-->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/login_and_signup/modifyemail.js"></script>
+  <!-- libreria per la gestione dei cookie con sintassi jQuery-->
+  <script src="./jquery-cookie-master/src/jquery.cookie.js"></script>
 </body>
 </html>

@@ -17,4 +17,24 @@ function validation(){
 }
 
 // the function validate will be executed when the html file will be completely parsed
-$(document).ready(validation)
+$(document).ready(validation);
+
+// gestisce dell'evento modifica email
+$('#modifyemail_form').on('submit', function(event){
+    event.preventDefault();
+
+    var emails = {
+        old_email : $('#old_email').val(),
+        new_email : $('#new_email').val(),
+    };
+
+    // invio della richiesta post
+    $.post('/modifyemail', emails).done(function(){
+        // rimozione dei cookie per l'intero sito
+        $.cookie('email', '', { expires: -1, path: '/'});
+        alert("Email cambiata. accedi di nuovo");
+        window.location.href = './index.html';
+    }).fail(function(){
+        alert('Errore nella modifica dell\' email');
+    });
+});

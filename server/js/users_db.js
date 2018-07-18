@@ -207,15 +207,117 @@ module.exports = {
                         response.sendStatus(500);
                         return;
                     }
+                    
+                    // invio di una risposta "affermativa"
+                    response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+                    response.end("logout eseguito con successo");
+                    console.log("logout eseguito con successo");
+                    return;
                 });
-    
-                // invio di una risposta "affermativa"
-                response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                response.end("logout eseguito con successo");
-                console.log("logout eseguito con successo");
-                return;
             });
         });
     },
     
+     /**
+     * @author Antonino Mauro Liuzzo
+     * @author Federico Augello
+     * @description gestisce la richiesta di modifica dell' email
+     */
+    modifyemail : function(response, connection, old_email, new_email){
+        // verifica se un utente utilizza la vecchia email
+        connection.query('SELECT * FROM users \
+        WHERE email = "' + old_email + '";', function(error, result, fields){
+            console.log("ottenute le informazioni relative agli utenti");
+            console.log(result[0]);
+            
+            if(error){
+                console.log("errore nella query ottenimento info");
+                // codice di stato 500 : Internal Server Error
+                response.sendStatus(500);
+                return;
+            }
+            
+            // se il primo campo è vuoto non c'è utente che corrisponde alla mail
+            if(result[0] === undefined){
+                console.log("mail non valida");
+                // codice di stato 400 : Bad Request
+                response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                response.end("ERRORE: mail non presente");
+                return;
+            }
+
+            var id = result[0].user_id;
+            console.log(id);
+            // verifica se un utente utilizza la nuova mail
+            connection.query('SELECT * FROM users \
+            WHERE email = "' + new_email + '";', function(error, result, fields){
+                if(error){
+                    console.log("errore nella query ottenimento info");
+                    // codice di stato 500 : Internal Server Error
+                    response.sendStatus(500);
+                    return;
+                }
+
+                // se il primo campo è vuoto non c'è utente che corrisponde alla mail
+                if(result[0] !== undefined){
+                    console.log("mail gia' utilizzata");
+                    // codice di stato 400 : Bad Request
+                    response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                    response.end("ERRORE: mail gia' utilizzata");
+                    return;
+                }
+                
+                // le credenziali sono corrette, si setta la nuova email dell'utente
+                connection.query('UPDATE `users`\
+                SET `email` = "' + new_email + '" WHERE (`user_id` = ' + id + ');', function(error, result, fields){
+                    if(error){
+                        console.log("errore nella query di cambio email");
+                        // codice di stato 500 : Internal Server Error
+                        response.sendStatus(500);
+                        return;
+                    }
+
+                    // si effettuano le query per il logout
+                    connection.query('SELECT * FROM users \
+                    WHERE email = "' + new_email + '";', function(error, result, fields){
+                        console.log("ottenute le informazioni relative agli utenti");
+                        console.log(result[0]);
+                
+                        if(error){
+                            console.log("errore nella query ottenimento info");
+                            // codice di stato 500 : Internal Server Error
+                            response.sendStatus(500);
+                            return;
+                        }
+                
+                        // se il primo campo è vuoto non c'è utente che corrisponde alla mail
+                        if(result[0] === undefined){
+                            console.log("mail non valida");
+                            // codice di stato 400 : Bad Request
+                            response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                            response.end("ERRORE: mail non presente");
+                            return;
+                        }
+    
+                        // le credenziali sono corrette, si setta l'utente definito da esse come utente offline
+                        console.log(result[0].user_id);
+                        connection.query('UPDATE users SET `online` = 0 WHERE (`user_id` = ' + result[0].user_id + ');', function(error, result, fields){
+                            if(error){
+                                console.log("errore nella query di messa offline");
+                                // codice di stato 500 : Internal Server Error
+                                response.sendStatus(500);
+                                return;
+                            }
+                            
+                            // invio di una risposta "affermativa"
+                            response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+                            response.end("logout eseguito con successo");
+                            console.log("logout eseguito con successo");
+                            return;
+                        });                        
+                    }); 
+                });
+            });
+        });
+    },
 }
