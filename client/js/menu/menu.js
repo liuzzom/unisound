@@ -62,3 +62,14 @@ function menuToggle(){
 }
 
 $(document).ready(menuToggle);
+
+// gestione del logout
+$('.logout').on('click', function(event){
+    event.preventDefault();
+
+    $.get('/logout', function(){
+        // rimozione dei cookie per l'intero sito
+        $.cookie('email', '', { expires: -1, path: '/'});
+        window.location.href = './index.html';
+    });
+})

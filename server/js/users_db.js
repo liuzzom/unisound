@@ -82,13 +82,59 @@ module.exports = {
                     return;
                 }
             });
-            
+
             // invio di una risposta "affermativa"
             console.log("login eseguito con successo");
             response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
             response.end("login eseguito con successo");
             return;
         });
-    }, 
+    },
+    
+    /**
+     * @author Antonino Mauro Liuzzo
+     * @author Federico Augello
+     * @description gestisce la richiesta di logout
+     */
+    logout : function(response, connection, email){
+        connection.query('SELECT * FROM users \
+        WHERE email = "' + email + '";', function(error, result, fields){
+            console.log("ottenute le informazioni relative agli utenti");
+            console.log(result[0]);
+            
+            if(error){
+                console.log("errore nella query ottenimento info");
+                // codice di stato 500 : Internal Server Error
+                response.sendStatus(500);
+                return;
+            }
+            
+            // se il primo campo è vuoto non c'è utente che corrisponde alla mail
+            if(result[0] === undefined){
+                console.log("mail e password non valide");
+                // codice di stato 400 : Bad Request
+                response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                response.end("ERRORE: mail non presente");
+                return;
+            }
+
+            // le credenziali sono corrette, si setta l'utente definito da esse come utente online
+            console.log(result[0].user_id);
+            connection.query('UPDATE users SET `online` = 0 WHERE (`user_id` = ' + result[0].user_id + ');', function(error, result, fields){
+                if(error){
+                    console.log("errore nella query di messa online");
+                    // codice di stato 500 : Internal Server Error
+                    response.sendStatus(500);
+                    return;
+                }
+            });
+
+            // invio di una risposta "affermativa"
+            response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+            response.end("logout eseguito con successo");
+            console.log("logout eseguito con successo");
+            return;
+        });
+    },
     
 }

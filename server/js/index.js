@@ -63,7 +63,6 @@ app.get('/', function(request, response){
 });
 
 // richiesta get della schermata home
-// to do: in base al parsing dei cookie dare la home page o la login page
 app.get('/home.html', function(request, response){
   console.log("ricevuta get alla home");
   if(request.cookies.email){
@@ -80,15 +79,29 @@ app.get('/home.html', function(request, response){
 // richiesta get della schermata modifica password
 app.get('/modifypassword.html', function(request, response){
   console.log("ricevuta get alla schermata di modifica password");
-  response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'index.html')); 
-  console.log("redirecting sulla login page");
+  if(request.cookies.email){
+    console.log("cookie rilevati");
+    response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'modifypassword.html')); 
+    console.log("redirecting sulla pagina di modifica password");
+  }else{
+    console.log("cookie non rilevati");
+    response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'index.html')); 
+    console.log("redirecting sulla login page");
+  }
 });
 
 // richiesta get della schermata modifica email
 app.get('/modifyemail.html', function(request, response){
   console.log("ricevuta get alla schermata di modifica email");
-  response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'index.html')); 
-  console.log("redirecting sulla login page");
+  if(request.cookies.email){
+    console.log("cookie rilevati");
+    response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'modifyemail.html')); 
+    console.log("redirecting sulla pagina di modifica email");
+  }else{
+    console.log("cookie non rilevati");
+    response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'index.html')); 
+    console.log("redirecting sulla login page");
+  }
 });
 
 // richiesta get della schermata di registrazione
@@ -131,6 +144,21 @@ app.post('/signup', function(request, response){
    */
   users_db.addUser(response, connection, fisrt_name, last_name, email, password);
 });
+
+/**
+ * @author Antonino Liuzzo Mauro
+ * @author Federico Augello
+ * @description handler della richiesta get relativa al logout
+ */
+app.get('/logout', function(request, response){
+  console.log("ricevuta get per il logout");
+  console.log(request.cookies.email);
+
+  var email = request.cookies.email;
+  // rimuove l'utente dall'elenco degli utenti online e invia la risposta al client
+  users_db.logout(response, connection, email); 
+});
+
 
 // gestione dei file statici (html, css, js, ecc...)
 app.use(express.static('client'));
