@@ -12,6 +12,7 @@ const app = express();
 
 // import dei moduli contenenti le query al db
 const users_db = require('./users_db.js');
+const playlists_db = require('./playlists_db.js');
 
 // MySQL connection
 var mysql = require('mysql');
@@ -177,7 +178,7 @@ app.post('/modifypassword', function(request, response){
 });
 
 /**
- * @author Antonino Liuzzo Mauro
+ * @author Antonino Mauro Liuzzo
  * @author Federico Augello
  * @description handler della richiesta post relativa alla modifica dell'email
  */
@@ -190,6 +191,20 @@ app.post('/modifyemail', function(request, response){
 
   // modifica dell'email e invio risposta al client
   users_db.modifyemail(response, connection, old_email, new_email);
+});
+
+/**
+ * @author Antonino Mauro Liuzzo
+ * @description handler della richiesta post relativa alla creazione di una nuova playlist
+ */
+app.post('/newplaylist', function(request, response){
+  console.log("ricevuta post per la creazione di una nuova playlist");
+  console.log(request.body.name);
+
+  var name = request.body.name;
+  var email = request.cookies.email;
+  // richiesta di creazione di una nuova playlist
+  playlists_db.newPlaylist(response, connection, email, name);
 });
 
 // gestione dei file statici (html, css, js, ecc...)

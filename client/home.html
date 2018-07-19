@@ -42,10 +42,10 @@
         <h1 id="playlist_section">Playlist
           <img class="new_playlist_btn" src="./images/plus_white.png" alt="New Playlist Button" title="Crea una nuova playlist"> <!-- Pulsante Nuova Playlist-->
         </h1>
-        <form action="" class="new_playlist"><!--Form inserimento nuova Playlist-->
+        <form class="new_playlist"><!--Form inserimento nuova Playlist-->
           <input type="text" name="new_playlist_name" id="new_playlist_name" placeholder="Nome della nuova Playlist" autocomplete="off">
           <button type="submit" id="new_playlist_submit" class="playlist_submit_button">Crea</button>
-          <p class="invalid_name">Nome vuoto o già presente</p>
+          <p class="invalid_name">Nome vuoto</p>
         </form>
         <form action="" class="search_form playlist_form"><!--Ricerca Playlist-->
           <input type="text" name="playlist_field" id="playlist_field" placeholder="Cerca Playlist">
@@ -155,7 +155,7 @@
       <button id="next_song" class=""><img class="next_song_img" src="./images/audio_buttons/next.png" alt="Next"></button>    
       <audio id="streaming_bar" controls>
         <source src="" type="audio/mp3">
-        Your browser does not support the audio element.
+        Your browser does not support the html audio tag.
       </audio>
     </div>
   </footer>

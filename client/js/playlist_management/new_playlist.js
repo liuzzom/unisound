@@ -11,7 +11,7 @@ function newPlaylist(){
     // controllo validità nome
     $('#new_playlist_name').on('keyup', function(){
         var name = $(this).val();
-        if(name == "" || isUsed(name)){
+        if(name == ""){
             // nome non valido, viene mostrato l'errore e nascosto il pulsante
             $('.invalid_name').show();
             $('.playlist_submit_button').hide();
@@ -25,13 +25,20 @@ function newPlaylist(){
 
 $(document).ready(newPlaylist);
 
-var usedNames = ['Playlist 1', 'Musica Italiana', 'Trap', 'Death Metal'];
+$('.new_playlist').on('submit', function(event){
+    event.preventDefault();
 
-function isUsed(name){
-    for(let i = 0; i < usedNames.length; i++){
-        if(name === usedNames[i]){
-            return true;
-        }
-    }
-    return false;
-}
+    // nome della nuova playlist
+    // la mail dell'utente viene recuperata lato server tramite i cookie
+    var data = {
+        name : $('#new_playlist_name').val(),
+    };
+    
+    $.post('/newplaylist', data).done(function(){
+        alert("Playlist creata");
+        document.getElementById('new_playlist_name').value = "";
+    }).fail(function(){
+        alert("Errore nella creazione della playlist");
+        document.getElementById('new_playlist_name').value = "";
+    });    
+});

@@ -111,6 +111,7 @@ $('#signup_form').on('submit', function(event){
     // richiesta post al server
     $.post('/signup', user)
         .done(function(){
+            alert("Account registrato. Procedi al login");
             window.location.href = './index.html';
         })
         .fail(function(){
