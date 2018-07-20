@@ -207,5 +207,18 @@ app.post('/newplaylist', function(request, response){
   playlists_db.newPlaylist(response, connection, email, name);
 });
 
+/**
+ * @author Antonino Mauro Liuzzo
+ * @author Federico Augello
+ * @description handler della richiesta get relativa all'ottenimento
+ */
+app.get('/getplaylists', function(request, response){
+  console.log("ricevuta get per le playlist");
+
+  var email = request.cookies.email;
+  // query al db per ottenimento delle playlist
+  playlists_db.getPlaylistsByMail(response, connection, email);
+});
+
 // gestione dei file statici (html, css, js, ecc...)
 app.use(express.static('client'));

@@ -59,6 +59,9 @@ function menuToggle(){
     var screen_hide = window.matchMedia("(max-width: 800px)");
     hide_panes(screen_hide);
     screen_hide.addListener(hide_panes);
+
+    // ottenimento delle playlist dal db
+    getPlaylists();
 }
 
 $(document).ready(menuToggle);
@@ -73,3 +76,21 @@ $('.logout').on('click', function(event){
         window.location.href = './index.html';
     });
 })
+
+function getPlaylists(){
+    $.get('/getplaylists', function(response){
+        for(let i = 0; i < response.length; i++){
+            console.log(response[i].name);
+        }
+    });
+}
+
+$('.refresh_btn').on('click', function(event){
+    event.preventDefault();
+
+    $.get('/getplaylists', function(response){
+        for(let i = 0; i < response.length; i++){
+            console.log(response[i].name);
+        }
+    });
+});
