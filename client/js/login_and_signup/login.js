@@ -48,7 +48,7 @@ function encrypt() {
 
 // gestione dell'evento login
 $('#login_form').on('submit', function(event){
-    // event.preventDefault();
+    event.preventDefault();
     encrypt();
 
     var user = {

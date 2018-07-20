@@ -79,18 +79,29 @@ $('.logout').on('click', function(event){
 
 function getPlaylists(){
     $.get('/getplaylists', function(response){
+        var list = $('.playlists');
+        $(list).empty();
         for(let i = 0; i < response.length; i++){
             console.log(response[i].name);
+            var item = document.createElement("LI");
+            var div = document.createElement("DIV");
+            var span = document.createElement("SPAN");
+            var img = document.createElement("IMG");
+            
+            var name = document.createTextNode(response[i].name);
+            $(span).append(name);
+            $(img).attr('src', '../../images/delete_white.png');
+
+            $(list).append(item);
+            $(item).append(div);
+            $(div).append(span);
+            $(div).after(img);
         }
     });
 }
 
 $('.refresh_btn').on('click', function(event){
     event.preventDefault();
+    getPlaylists();
 
-    $.get('/getplaylists', function(response){
-        for(let i = 0; i < response.length; i++){
-            console.log(response[i].name);
-        }
-    });
 });
