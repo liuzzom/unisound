@@ -223,10 +223,23 @@ app.get('/getplaylists', function(request, response){
 
 /**
  * @author Antonino Mauro Liuzzo
+ * @description handler della ricerca delle playlist
+ */
+app.post('/searchplaylists', function(request, response){
+  console.log("ricevuta get per le playlist");
+
+  var name = request.body.name;
+  var email = request.cookies.email;
+  // query al db per ottenimento delle playlist
+  playlists_db.searchPlaylists(response, connection, email, name);
+});
+
+/**
+ * @author Antonino Mauro Liuzzo
  * @description handler della ricerca delle canzoni
  */
 app.post('/searchsongs', function(request, response){
-  console.log("ricevuta get per le canzoni");
+  console.log("ricevuta post per le canzoni");
 
   var name = request.body.name;
 
