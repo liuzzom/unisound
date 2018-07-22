@@ -77,21 +77,26 @@ $('.logout').on('click', function(event){
     });
 })
 
+// richiesta delle playlist dell'utente
 function getPlaylists(){
+    // invio di una richiesta get al server
     $.get('/getplaylists', function(response){
         var list = $('.playlists');
         $(list).empty();
         for(let i = 0; i < response.length; i++){
             console.log(response[i].name);
+            // creazione dei vari elementi html
             var item = document.createElement("LI");
             var div = document.createElement("DIV");
             var span = document.createElement("SPAN");
             var img = document.createElement("IMG");
             
+            // impostazione dei dati negli elementi html
             var name = document.createTextNode(response[i].name);
             $(span).append(name);
             $(img).attr('src', '../../images/delete_white.png');
 
+            // "assemblaggio" degli elementi
             $(list).append(item);
             $(item).append(div);
             $(div).append(span);
@@ -104,4 +109,21 @@ $('.refresh_btn').on('click', function(event){
     event.preventDefault();
     getPlaylists();
 
+});
+
+$('.song_form').on('submit', function(event){
+    event.preventDefault();
+    // invio di una richiesta get al server
+
+    var data = {
+        name : $('#song_field').val()
+    };
+
+    $.post('/searchsongs', data).done(function(response){
+        for(let i = 0; i < response.length; i++){
+            console.log(response[i]);
+        }
+    }).fail(function(){
+        console.log("errore nella ricerca dei brani");
+    });
 });

@@ -13,6 +13,7 @@ const app = express();
 // import dei moduli contenenti le query al db
 const users_db = require('./users_db.js');
 const playlists_db = require('./playlists_db.js');
+const songs_db = require('./songs_db.js');
 
 // MySQL connection
 var mysql = require('mysql');
@@ -210,7 +211,7 @@ app.post('/newplaylist', function(request, response){
 /**
  * @author Antonino Mauro Liuzzo
  * @author Federico Augello
- * @description handler della richiesta get relativa all'ottenimento
+ * @description handler della richiesta get relativa all'ottenimento delle playlist
  */
 app.get('/getplaylists', function(request, response){
   console.log("ricevuta get per le playlist");
@@ -218,6 +219,19 @@ app.get('/getplaylists', function(request, response){
   var email = request.cookies.email;
   // query al db per ottenimento delle playlist
   playlists_db.getPlaylistsByMail(response, connection, email);
+});
+
+/**
+ * @author Antonino Mauro Liuzzo
+ * @description handler della ricerca delle canzoni
+ */
+app.post('/searchsongs', function(request, response){
+  console.log("ricevuta get per le canzoni");
+
+  var name = request.body.name;
+
+  //query al db per ottenimento delle canzoni che corrispondono al filtro
+  songs_db.searchSongs(response, connection, name);
 });
 
 // gestione dei file statici (html, css, js, ecc...)
