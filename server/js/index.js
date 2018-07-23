@@ -255,9 +255,10 @@ app.post('/searchsongs', function(request, response){
 app.post('/searchusers', function(request, response){
   console.log("ricevuta post per gli utenti");
   var name = request.body.name;
+  var email = request.cookies.email;
 
   //query al db per ottenimento degli utenti che corrispondono al filtro
-  friends_db.searchUsers(response, connection, name);
+  friends_db.searchUsers(response, connection, name, email);
 });
 
 // gestione dei file statici (html, css, js, ecc...)

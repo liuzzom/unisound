@@ -158,8 +158,41 @@ $('.song_form').on('submit', function(event){
     };
 
     $.post('/searchsongs', data).done(function(response){
+        var list = $('.songs');
+        $(list).empty();
         for(let i = 0; i < response.length; i++){
             console.log(response[i]);
+
+            // creazione dei vari elementi html
+            var item = document.createElement("LI");
+            var div = document.createElement("DIV");
+            var nomeBrano = document.createElement("SPAN");
+            var artistaBrano = document.createElement("SPAN");
+            var albumBrano = document.createElement("SPAN");
+            var play = document.createElement("IMG");
+            var aggiungiAPlaylist = document.createElement("IMG");
+            var rimuoviDaPlaylist = document.createElement("IMG");
+
+            // impostazione dei dati negli elementi html
+            var title = document.createTextNode(response[i].title);
+            var artist = document.createTextNode(response[i].artist);
+            var album = document.createTextNode(response[i].album);
+            $(nomeBrano).append(title);
+            $(artistaBrano).append(artist);
+            $(albumBrano).append(album);
+            $(play).attr('src', '../../images/songs_buttons/play.png');
+            $(aggiungiAPlaylist).attr('src', '../../images/songs_buttons/plus_black.png');
+            $(rimuoviDaPlaylist).attr('src', '../../images/songs_buttons/minus.png');
+
+            // "assemblaggio" degli elementi
+            $(list).append(item);
+            $(item).append(div);
+            $(div).append(nomeBrano);
+            $(nomeBrano).after(artistaBrano);
+            $(artistaBrano).after(albumBrano);
+            $(div).after(play);
+            $(play).after(aggiungiAPlaylist);
+            $(aggiungiAPlaylist).after(rimuoviDaPlaylist);
         }
     }).fail(function(){
         console.log("errore nella ricerca dei brani");
@@ -176,8 +209,27 @@ $('.friend_form').on('submit', function(event){
     };
 
     $.post('/searchusers', data).done(function(response){
+        var list = $('.friends');
+        $(list).empty();
         for(let i = 0; i < response.length; i++){
             console.log(response[i]);
+
+            // creazione dei vari elementi html
+            var item = document.createElement("LI");
+            var div = document.createElement("DIV");
+            var amico = document.createElement("SPAN");
+            var addOrRemove = document.createElement("IMG");
+
+            // impostazione dei dati negli elementi html
+            var nomeECognome = document.createTextNode(response[i].first_name + " " + response[i].last_name);
+            $(addOrRemove).attr('src', '../../images/friends_buttons/follow.png');
+            $(amico).append(nomeECognome);
+
+            // "assemblaggio" degli elementi
+            $(list).append(item);
+            $(item).append(div);
+            $(div).append(amico);
+            $(div).after(addOrRemove);
         }
     }).fail(function(){
         console.log("errore nella ricerca dei brani");
