@@ -165,3 +165,21 @@ $('.song_form').on('submit', function(event){
         console.log("errore nella ricerca dei brani");
     });
 });
+
+// ricerca utenti
+$('.friend_form').on('submit', function(event){
+    event.preventDefault();
+    // invio di una richiesta al server
+
+    var data = {
+        name : $('#friend_field').val()
+    };
+
+    $.post('/searchusers', data).done(function(response){
+        for(let i = 0; i < response.length; i++){
+            console.log(response[i]);
+        }
+    }).fail(function(){
+        console.log("errore nella ricerca dei brani");
+    });
+});

@@ -14,6 +14,7 @@ const app = express();
 const users_db = require('./users_db.js');
 const playlists_db = require('./playlists_db.js');
 const songs_db = require('./songs_db.js');
+const friends_db = require('./friends_db.js');
 
 // MySQL connection
 var mysql = require('mysql');
@@ -245,6 +246,18 @@ app.post('/searchsongs', function(request, response){
 
   //query al db per ottenimento delle canzoni che corrispondono al filtro
   songs_db.searchSongs(response, connection, name);
+});
+
+/**
+ * @author Federico Augello
+ * @description handler della ricerca degli utenti
+ */
+app.post('/searchusers', function(request, response){
+  console.log("ricevuta post per gli utenti");
+  var name = request.body.name;
+
+  //query al db per ottenimento degli utenti che corrispondono al filtro
+  friends_db.searchUsers(response, connection, name);
 });
 
 // gestione dei file statici (html, css, js, ecc...)
