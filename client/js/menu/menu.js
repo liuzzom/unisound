@@ -184,6 +184,25 @@ $('.song_form').on('submit', function(event){
             $(aggiungiAPlaylist).attr('src', '../../images/songs_buttons/plus_black.png');
             $(rimuoviDaPlaylist).attr('src', '../../images/songs_buttons/minus.png');
 
+            play.addEventListener('click', function(event){
+                event.preventDefault();
+
+                $('#song_name').html(response[i].title);
+                $('#author').html(response[i].artist);
+                $('#album').html(response[i].album);
+
+                /*var audio = document.getElementById('streaming_bar');
+                var songBar = document.getElementById('song_path');
+                songBar.src = response[i].path;
+
+                audio.load();
+                audio.play();*/
+
+                $('#song_path').attr('src', response[i].path);
+                var audio = document.getElementById('streaming_bar');
+                audio.play();
+            });
+
             // "assemblaggio" degli elementi
             $(list).append(item);
             $(item).append(div);
