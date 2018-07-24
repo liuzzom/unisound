@@ -274,5 +274,17 @@ app.post('/deleteplaylist', function(request, response){
   playlists_db.deletePlaylist(response, connection, playlist_id);
 });
 
+/**
+ * @author Antonino Mauro Liuzzo
+ * @description handler della richiesta dei brani di una playlist
+ */
+app.post('/getSongsOfPlaylist', function(request, response){
+  console.log("ricevuta richiesta ottenimento canzoni di una playlist");
+  var playlist_id = request.body.playlist_id;
+
+  // query al db per l'ottenimento delle canzoni
+  playlists_db.getSongsOfPlaylist(response, connection, playlist_id);
+});
+
 // gestione dei file statici (html, css, js, ecc...)
 app.use(express.static('client'));

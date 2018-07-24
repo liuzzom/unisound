@@ -147,4 +147,28 @@ module.exports = {
             });
         });
     },
+
+    getSongsOfPlaylist : function(response, connection, playlist_id){
+        // query per l'ottenimento dei brani di una playlist
+        connection.query('SELECT song_id, title, artist, album, length, path \
+        FROM (\
+            SELECT songs_song_id FROM playlists_has_songs WHERE playlists_playlist_id = ' + playlist_id + ')\
+            AS subquery JOIN songs ON subquery.songs_song_id = songs.song_id;', function(error, result){
+
+            if(error){
+                console.log("errore nella query di ottenimento canzoni della playlist");
+                // codice di stato 400 : Bad Request
+                response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                response.end("ERRORE: il nome " + name + " è stato già usato");
+                return; 
+            }
+
+            // invio di una risposta "affermativa"
+            console.log("canzoni ottenute con successo");
+            response.statusCode = 200;
+            response.json(result);
+            response.end();
+            return;
+        });
+    },
 }

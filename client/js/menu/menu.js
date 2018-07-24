@@ -66,6 +66,75 @@ function menuToggle(){
 
 $(document).ready(menuToggle);
 
+// creazione della lista delle canzoni
+function fillSongsList(response){
+    var list = $('.songs');
+    // cancella un'eventuale lista creata in precedenza
+    $(list).empty();
+    // ordinamento per nome
+    response.sort(function(a, b) {
+        var nameA = a.title.toUpperCase(); // ignore upper and lowercase
+        var nameB = b.title.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        // i nomi devono essere uguali
+        return 0;
+    });
+    
+    for(let i = 0; i < response.length; i++){
+        console.log(response[i]);
+
+        // creazione dei vari elementi html
+        var item = document.createElement("LI");
+        var div = document.createElement("DIV");
+        var nomeBrano = document.createElement("SPAN");
+        var artistaBrano = document.createElement("SPAN");
+        var albumBrano = document.createElement("SPAN");
+        var play = document.createElement("IMG");
+        var aggiungiAPlaylist = document.createElement("IMG");
+        var rimuoviDaPlaylist = document.createElement("IMG");
+
+        // impostazione dei dati negli elementi html
+        var title = document.createTextNode(response[i].title);
+        var artist = document.createTextNode(response[i].artist);
+        var album = document.createTextNode(response[i].album);
+        $(nomeBrano).append(title);
+        $(artistaBrano).append(artist);
+        $(albumBrano).append(album);
+        $(play).attr('src', '../../images/songs_buttons/play.png');
+        $(aggiungiAPlaylist).attr('src', '../../images/songs_buttons/plus_black.png');
+        $(rimuoviDaPlaylist).attr('src', '../../images/songs_buttons/minus.png');
+
+        // gestisce la pressione del tasto play
+        play.addEventListener('click', function(event){
+            event.preventDefault();
+
+            $('#song_name').html(response[i].title);
+            $('#author').html(response[i].artist);
+            $('#album').html(response[i].album);
+
+            // $('#song_path').attr('src', response[i].path);
+            var audio = document.getElementById('streaming_bar');
+            audio.src = response[i].path;
+            audio.play();
+        });
+
+        // "assemblaggio" degli elementi
+        $(list).append(item);
+        $(item).append(div);
+        $(div).append(nomeBrano);
+        $(nomeBrano).after(artistaBrano);
+        $(artistaBrano).after(albumBrano);
+        $(div).after(play);
+        $(play).after(aggiungiAPlaylist);
+        $(aggiungiAPlaylist).after(rimuoviDaPlaylist);
+    }
+}
+
 // gestione del logout
 $('.logout').on('click', function(event){
     event.preventDefault();
@@ -104,11 +173,29 @@ function getPlaylists(){
                     playlist_id : response[i].playlist_id
                 };
 
+                // richiesta al server per la cancellazione della playlist
                 $.post('/deleteplaylist', data).done(function(){
                     alert("Playlist eliminata");
                     getPlaylists();
                 }).fail(function(){
                     alert('Errore nell\'eliminazione della playlist');
+                });
+            });
+
+            // gestione click sulla playlist
+            div.addEventListener('click', function(event){
+                event.preventDefault();
+                console.log("Cliccato sulla playlist");
+
+                var data = {
+                    playlist_id : response[i].playlist_id
+                };
+
+                // richiesta al server dei brani che fanno parte della playlist
+                $.post('/getSongsOfPlaylist', data).done(function(response){
+                    fillSongsList(response);
+                }).fail(function(){
+                    alert("Errore ottenimento canzoni della playlist");
                 });
             });
 
@@ -153,6 +240,40 @@ $('.playlist_form').on('submit', function(event){
             $(span).append(name);
             $(img).attr('src', '../../images/delete_white.png');
 
+            // getstione eliminazione della playlist
+            img.addEventListener('click', function(event){
+                event.preventDefault();
+
+                var data = {
+                    playlist_id : response[i].playlist_id
+                };
+
+                // richiesta al server per la cancellazione della playlist
+                $.post('/deleteplaylist', data).done(function(){
+                    alert("Playlist eliminata");
+                    getPlaylists();
+                }).fail(function(){
+                    alert('Errore nell\'eliminazione della playlist');
+                });
+            });
+
+            // gestione click sulla playlist
+            div.addEventListener('click', function(event){
+                event.preventDefault();
+                console.log("Cliccato sulla playlist");
+
+                var data = {
+                    playlist_id : response[i].playlist_id
+                };
+
+                // richiesta al server dei brani che fanno parte della playlist
+                $.post('/getSongsOfPlaylist', data).done(function(response){
+                    fillSongsList(response);
+                }).fail(function(){
+                    alert("Errore ottenimento canzoni della playlist");
+                });
+            });
+
             // "assemblaggio" degli elementi
             $(list).append(item);
             $(item).append(div);
@@ -174,71 +295,7 @@ $('.song_form').on('submit', function(event){
     };
 
     $.post('/searchsongs', data).done(function(response){
-        var list = $('.songs');
-        // cancella un'eventuale lista creata in precedenza
-        $(list).empty();
-        // ordinamento per nome
-        response.sort(function(a, b) {
-            var nameA = a.title.toUpperCase(); // ignore upper and lowercase
-            var nameB = b.title.toUpperCase(); // ignore upper and lowercase
-            if (nameA < nameB) {
-                return -1;
-            }
-            if (nameA > nameB) {
-                return 1;
-            }
-            // i nomi devono essere uguali
-            return 0;
-        });
-        
-        for(let i = 0; i < response.length; i++){
-            console.log(response[i]);
-
-            // creazione dei vari elementi html
-            var item = document.createElement("LI");
-            var div = document.createElement("DIV");
-            var nomeBrano = document.createElement("SPAN");
-            var artistaBrano = document.createElement("SPAN");
-            var albumBrano = document.createElement("SPAN");
-            var play = document.createElement("IMG");
-            var aggiungiAPlaylist = document.createElement("IMG");
-            var rimuoviDaPlaylist = document.createElement("IMG");
-
-            // impostazione dei dati negli elementi html
-            var title = document.createTextNode(response[i].title);
-            var artist = document.createTextNode(response[i].artist);
-            var album = document.createTextNode(response[i].album);
-            $(nomeBrano).append(title);
-            $(artistaBrano).append(artist);
-            $(albumBrano).append(album);
-            $(play).attr('src', '../../images/songs_buttons/play.png');
-            $(aggiungiAPlaylist).attr('src', '../../images/songs_buttons/plus_black.png');
-            $(rimuoviDaPlaylist).attr('src', '../../images/songs_buttons/minus.png');
-
-            // gestisce la pressione del tasto play
-            play.addEventListener('click', function(event){
-                event.preventDefault();
-
-                $('#song_name').html(response[i].title);
-                $('#author').html(response[i].artist);
-                $('#album').html(response[i].album);
-
-                // $('#song_path').attr('src', response[i].path);
-                var audio = document.getElementById('streaming_bar');
-                audio.src = response[i].path;
-                audio.play();
-            });
-
-            // "assemblaggio" degli elementi
-            $(list).append(item);
-            $(item).append(div);
-            $(div).append(nomeBrano);
-            $(nomeBrano).after(artistaBrano);
-            $(artistaBrano).after(albumBrano);
-            $(div).after(play);
-            $(play).after(aggiungiAPlaylist);
-            $(aggiungiAPlaylist).after(rimuoviDaPlaylist);
-        }
+        fillSongsList(response);
     }).fail(function(){
         console.log("errore nella ricerca dei brani");
     });
