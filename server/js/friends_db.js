@@ -7,7 +7,7 @@ module.exports = {
     searchUsers : function(response, connection, name, email){
         // query al db riguardo gli utenti che combaciano con il filtro
         connection.query('SELECT first_name, last_name, online FROM users \
-        WHERE `first_name` LIKE "%' + name + '%" OR `last_name` LIKE "%' + name + '%" AND `email` != "' + email + '";', function(error, result){
+        WHERE (`first_name` LIKE "%' + name + '%" OR `last_name` LIKE "%' + name + '%") AND `email` != "' + email + '";', function(error, result){
             console.log("query al db per ricerca utenti");
             if(error){
                 console.log("errore nella query ricerca utenti");

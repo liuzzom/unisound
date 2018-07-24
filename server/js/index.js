@@ -261,5 +261,18 @@ app.post('/searchusers', function(request, response){
   friends_db.searchUsers(response, connection, name, email);
 });
 
+/**
+ * @author Antonino Mauro Liuzzo
+ * @author Federico Augello
+ * @description handler della cancellazione della playlist
+ */
+app.post('/deleteplaylist', function(request, response){
+  console.log("ricevuta richiesta eliminazione playlist");
+  var playlist_id = request.body.playlist_id;
+
+  // query al db per la cancellazione della playlist
+  playlists_db.deletePlaylist(response, connection, playlist_id);
+});
+
 // gestione dei file statici (html, css, js, ecc...)
 app.use(express.static('client'));

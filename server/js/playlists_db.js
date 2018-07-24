@@ -118,4 +118,33 @@ module.exports = {
         });
     },
 
+    deletePlaylist : function(response, connection, playlist_id){
+        // prima query che cancella le associazioni tra canzoni e la playlist da eliminare
+        connection.query('DELETE FROM playlists_has_songs WHERE `playlists_playlist_id` = ' + playlist_id + ';', function(error, result){
+            if(error){
+                console.log("errore nella query di eliminazione associazioni");
+                // codice di stato 400 : Bad Request
+                response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                response.end("ERRORE: il nome " + name + " è stato già usato");
+                return; 
+            }
+            
+            // seconda query che cancella la playlist
+            connection.query('DELETE FROM playlists WHERE playlist_id = ' + playlist_id + ';', function(error, result){
+                if(error){
+                    console.log("errore nella query di eliminazione playlist");
+                    // codice di stato 400 : Bad Request
+                    response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                    response.end("ERRORE: il nome " + name + " è stato già usato");
+                    return; 
+                }
+                
+                // invio di una risposta "affermativa"
+                console.log("Playlist eliminata con successo");
+                response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+                response.end("Playlist eliminata con successo");
+                return;  
+            });
+        });
+    },
 }

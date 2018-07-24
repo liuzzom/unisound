@@ -25,6 +25,7 @@ function newPlaylist(){
 
 $(document).ready(newPlaylist);
 
+// creazione di una nuova playlist
 $('.new_playlist').on('submit', function(event){
     event.preventDefault();
 
@@ -35,7 +36,7 @@ $('.new_playlist').on('submit', function(event){
     };
     
     $.post('/newplaylist', data).done(function(){
-        alert("Playlist creata");
+        alert("Playlist creata. Si prega di premere l'apposito pulsante 'refresh'");
         document.getElementById('new_playlist_name').value = "";
     }).fail(function(){
         alert("Errore nella creazione della playlist");

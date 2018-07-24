@@ -84,7 +84,7 @@ function getPlaylists(){
         var list = $('.playlists');
         $(list).empty();
         for(let i = 0; i < response.length; i++){
-            console.log(response[i].name);
+            console.log(response[i]);
             // creazione dei vari elementi html
             var item = document.createElement("LI");
             var div = document.createElement("DIV");
@@ -95,6 +95,22 @@ function getPlaylists(){
             var name = document.createTextNode(response[i].name);
             $(span).append(name);
             $(img).attr('src', '../../images/delete_white.png');
+
+            // getstione eliminazione della playlist
+            img.addEventListener('click', function(event){
+                event.preventDefault();
+
+                var data = {
+                    playlist_id : response[i].playlist_id
+                };
+
+                $.post('/deleteplaylist', data).done(function(){
+                    alert("Playlist eliminata");
+                    getPlaylists();
+                }).fail(function(){
+                    alert('Errore nell\'eliminazione della playlist');
+                });
+            });
 
             // "assemblaggio" degli elementi
             $(list).append(item);
@@ -199,6 +215,7 @@ $('.song_form').on('submit', function(event){
             $(aggiungiAPlaylist).attr('src', '../../images/songs_buttons/plus_black.png');
             $(rimuoviDaPlaylist).attr('src', '../../images/songs_buttons/minus.png');
 
+            // gestisce la pressione del tasto play
             play.addEventListener('click', function(event){
                 event.preventDefault();
 
