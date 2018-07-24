@@ -159,7 +159,22 @@ $('.song_form').on('submit', function(event){
 
     $.post('/searchsongs', data).done(function(response){
         var list = $('.songs');
+        // cancella un'eventuale lista creata in precedenza
         $(list).empty();
+        // ordinamento per nome
+        response.sort(function(a, b) {
+            var nameA = a.title.toUpperCase(); // ignore upper and lowercase
+            var nameB = b.title.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+            // i nomi devono essere uguali
+            return 0;
+        });
+        
         for(let i = 0; i < response.length; i++){
             console.log(response[i]);
 
@@ -191,15 +206,9 @@ $('.song_form').on('submit', function(event){
                 $('#author').html(response[i].artist);
                 $('#album').html(response[i].album);
 
-                /*var audio = document.getElementById('streaming_bar');
-                var songBar = document.getElementById('song_path');
-                songBar.src = response[i].path;
-
-                audio.load();
-                audio.play();*/
-
-                $('#song_path').attr('src', response[i].path);
+                // $('#song_path').attr('src', response[i].path);
                 var audio = document.getElementById('streaming_bar');
+                audio.src = response[i].path;
                 audio.play();
             });
 
