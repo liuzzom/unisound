@@ -21,22 +21,41 @@ module.exports = {
             if(result[0] !== undefined){
                 var user_id = result[0].user_id;
                 console.log(result[0].email + " " + user_id);
-                
-                connection.query('INSERT INTO playlists (`name`, `length`, `users_user_id`) VALUES ("' + name + '", 0, ' + user_id + ');', function(error, result){
-                    console.log("query di inserimento playlist nel db");
+
+                connection.query('SELECT * FROM playlists WHERE name = "' + name + '" and users_user_id = ' + user_id + ';', function(error, result){
+                    console.log("query di ottenimento playlist dal db");
                     if(error){
+                        console.log("errore nella query di ottenimento playlist dal db");
+                        // codice di stato 400 : Bad Request
+                        response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                        response.end("ERRORE: il nome " + name + " è stato già usato");
+                        return;
+                    }
+
+                    if(result[0] !== undefined){
                         console.log("errore nella query di inserimento playlist nel db");
                         // codice di stato 400 : Bad Request
                         response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
                         response.end("ERRORE: il nome " + name + " è stato già usato");
                         return;
                     }
-        
-                    // invio di una risposta "affermativa"
-                    console.log("Playlist creata con successo");
-                    response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                    response.end("Playlist creata con successo");
-                    return;
+
+                    connection.query('INSERT INTO playlists (`name`, `length`, `users_user_id`) VALUES ("' + name + '", 0, ' + user_id + ');', function(error, result){
+                        console.log("query di inserimento playlist nel db");
+                        if(error){
+                            console.log("errore nella query di inserimento playlist nel db");
+                            // codice di stato 400 : Bad Request
+                            response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                            response.end("ERRORE: il nome " + name + " è stato già usato");
+                            return;
+                        }
+            
+                        // invio di una risposta "affermativa"
+                        console.log("Playlist creata con successo");
+                        response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+                        response.end("Playlist creata con successo");
+                        return;
+                    });
                 });
             }
         });
