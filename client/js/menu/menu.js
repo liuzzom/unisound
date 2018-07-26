@@ -63,6 +63,68 @@ function menuToggle(){
     // ottenimento delle playlist dal db
     getPlaylists();
 
+    // creazione della lista delle playlist senza il brano
+    function showPlaylistsWithoutThis(response, song_id){
+        if($(window).width() > 800){
+            alert("selezionare una delle playlist della sezione a sinstra");
+        }
+
+        var list = $('.playlists');
+        $(list).empty();
+        for(let i = 0; i < response.length; i++){
+            // creazione dei vari elementi html
+            var item = document.createElement("LI");
+            var div = document.createElement("DIV");
+            var span = document.createElement("SPAN");
+            var img = document.createElement("IMG");
+
+            var length = response[i].length / 60;
+            length = length.toFixed(2);
+        
+            // impostazione dei dati negli elementi html
+            var name = document.createTextNode(response[i].name + " (" + length + ")");
+            $(span).append(name);
+            $(img).attr('src', '../../images/plus_white.png');
+
+            // "assemblaggio" degli elementi
+            $(list).append(item);
+            $(item).append(div);
+            $(div).append(span);
+            $(div).after(img);
+        }        
+    }
+
+    // creazione della lista delle playlist con il brano
+    function showPlaylistsWithThis(response, song_id){
+        if($(window).width() > 800){
+            alert("selezionare una delle playlist della sezione a sinstra");
+        }
+
+        var list = $('.playlists');
+        $(list).empty();
+        for(let i = 0; i < response.length; i++){
+            // creazione dei vari elementi html
+            var item = document.createElement("LI");
+            var div = document.createElement("DIV");
+            var span = document.createElement("SPAN");
+            var img = document.createElement("IMG");
+
+            var length = response[i].length / 60;
+            length = length.toFixed(2);
+        
+            // impostazione dei dati negli elementi html
+            var name = document.createTextNode(response[i].name + " (" + length + ")");
+            $(span).append(name);
+            $(img).attr('src', '../../images/minus_white.png');
+
+            // "assemblaggio" degli elementi
+            $(list).append(item);
+            $(item).append(div);
+            $(div).append(span);
+            $(div).after(img);
+        }        
+    }
+
     // creazione della lista delle canzoni
     function fillSongsList(response){
         var list = $('.songs');
@@ -94,6 +156,8 @@ function menuToggle(){
             var play = document.createElement("IMG");
             var aggiungiAPlaylist = document.createElement("IMG");
             var rimuoviDaPlaylist = document.createElement("IMG");
+            var add_to = document.createElement("DIV");
+            var remove_from = document.createElement("DIV");
 
             // impostazione dei dati negli elementi html
             var title = document.createTextNode(response[i].title);
@@ -114,10 +178,47 @@ function menuToggle(){
                 $('#author').html(response[i].artist);
                 $('#album').html(response[i].album);
 
-                // $('#song_path').attr('src', response[i].path);
                 var audio = document.getElementById('streaming_bar');
                 audio.src = response[i].path;
                 audio.play();
+            });
+
+            // gestisce la pressione del tasto aggiungi a playlist
+            aggiungiAPlaylist.addEventListener('click', function(){
+                console.log("premuto il tasto aggiungi");
+                if($(window).width() <= 800){
+                    $('.playlist_button').click();
+                }
+
+                var song_id = response[i].song_id;
+                var data = {
+                    song_id : response[i].song_id
+                };
+
+                $.post('/getPlaylistsWithoutThis', data).done(function(response){
+                    showPlaylistsWithoutThis(response, song_id);
+                }).fail(function(){
+                    alert("Errore");
+                });
+            });
+
+             // gestisce la pressione del tasto rimuovi da playlist
+             rimuoviDaPlaylist.addEventListener('click', function(){
+                console.log("premuto il tasto rimuovi");
+                if($(window).width() <= 800){
+                    $('.playlist_button').click();
+                }
+
+                var song_id = response[i].song_id;
+                var data = {
+                    song_id : response[i].song_id
+                };
+
+                $.post('/getPlaylistsWithThis', data).done(function(response){
+                    showPlaylistsWithThis(response, song_id);
+                }).fail(function(){
+                    alert("Errore");
+                });
             });
 
             // "assemblaggio" degli elementi
@@ -129,6 +230,8 @@ function menuToggle(){
             $(div).after(play);
             $(play).after(aggiungiAPlaylist);
             $(aggiungiAPlaylist).after(rimuoviDaPlaylist);
+            $(rimuoviDaPlaylist).after(add_to);
+            $(add_to).after(remove_from);
         }
     }
 
@@ -349,14 +452,39 @@ function menuToggle(){
                     }
                     $(amico).append(nomeECognome);
 
-                    add.addEventListener('click', function(){
-                        $(add).hide();
-                        $(remove).show();
+                    add.addEventListener('click', function(event){
+                        event.preventDefault();
+
+                        var id = {
+                            friend_id : response[i].user_id
+                        };
+                        console.log(id);
+
+                        $.post('/follow', id).done(function(){
+                            alert("Adesso segui " + response[i].first_name);
+                            $(add).hide();
+                            $(remove).show();
+                        }).fail(function(){
+                            alert("Errore durante il follow: Segui già " +  response[i].first_name);
+                        });
+                        
                     });
 
                     remove.addEventListener('click', function(){
-                        $(remove).hide();
-                        $(add).show();
+                        event.preventDefault();
+
+                        var id = {
+                            friend_id : response[i].user_id
+                        };
+                        console.log(id);
+
+                        $.post('/unfollow', id).done(function(){
+                            alert("Hai smesso di seguire " + response[i].first_name);
+                            $(remove).hide();
+                            $(add).show();
+                        }).fail(function(){
+                            alert("Errore durante l'unfollow: non segui " +  response[i].first_name);
+                        });                        
                     });
 
                     // "assemblaggio" degli elementi

@@ -300,5 +300,60 @@ app.post('/verifyfriend', function(request, response){
   friends_db.verifyfriend(response, connection, email, friend_id);
 });
 
+/**
+ * @author Antonino Mauro Liuzzo
+ * @author Federico Augello
+ * @description handler della richiesta di follow
+ */
+app.post('/follow', function(request, response){
+  console.log("ricevuta richiesta per follow");
+
+  var email = request.cookies.email;
+  var friend_id = request.body.friend_id;
+
+  friends_db.follow(response, connection, email, friend_id);
+});
+
+/**
+ * @author Antonino Mauro Liuzzo
+ * @author Federico Augello
+ * @description handler della richiesta di unfollow
+ */
+app.post('/unfollow', function(request, response){
+  console.log("ricevuta richiesta per follow");
+
+  var email = request.cookies.email;
+  var friend_id = request.body.friend_id;
+
+  friends_db.unfollow(response, connection, email, friend_id);
+});
+
+/**
+ * @author Antonino Mauro Liuzzo
+ * @author Federico Augello
+ * @description handler della richiesta delle playlist che non contengono il brano
+ */
+app.post('/getPlaylistsWithoutThis', function(request, response){
+  console.log("ricevuta richiesta per playlist che non contengono il brano");
+
+  var email = request.cookies.email;
+  var song_id = request.body.song_id;
+
+  playlists_db.getPlaylistsWithoutThis(response, connection, email, song_id);
+});
+
+/**
+ * @author Antonino Mauro Liuzzo
+ * @author Federico Augello
+ * @description handler della richiesta delle playlist che contengono il brano
+ */
+app.post('/getPlaylistsWithThis', function(request, response){
+  console.log("ricevuta richiesta per playlist che contengono il brano");
+
+  var email = request.cookies.email;
+  var song_id = request.body.song_id;
+
+  playlists_db.getPlaylistsWithThis(response, connection, email, song_id);
+});
 // gestione dei file statici (html, css, js, ecc...)
 app.use(express.static('client'));

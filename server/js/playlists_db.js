@@ -191,4 +191,88 @@ module.exports = {
             return;
         });
     },
+
+    getPlaylistsWithoutThis : function(response, connection, email, song_id){
+        // verifichiamo se il db presenta un utente con la mail passata in input
+        connection.query('SELECT user_id, email FROM users WHERE email = "' + email + '";', function(error, result){
+            console.log("ottenute le mail dal db");
+            console.log(result[0]);
+            if(error){
+                console.log("errore nella query ottenimento mail");
+                response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                response.end("ERRORE: errore nella query ottenimento mail");
+                return;
+            }
+
+            // esiste un utente con la mail passata in input
+            if(result[0] !== undefined){
+                var user_id = result[0].user_id;
+                console.log(result[0].email + " " + user_id);
+
+                connection.query('SELECT *\
+                FROM playlists\
+                WHERE playlist_id NOT IN (\
+                SELECT playlists_playlist_id\
+                FROM playlists_has_songs\
+                WHERE songs_song_id = '+ song_id + ' ) AND users_user_id = ' + user_id + ';', function(error, result){
+
+                    if(error){
+                        console.log("errore nella query ottenimento playlist");
+                        response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                        response.end("ERRORE: errore nella query ottenimento playlist");
+                        return;
+                    }
+
+                    // invio di una risposta "affermativa"
+                    console.log("canzoni ottenute con successo");
+                    response.statusCode = 200;
+                    response.json(result);
+                    response.end();
+                    return;
+                });
+            }
+        });     
+    },
+
+    getPlaylistsWithThis : function(response, connection, email, song_id){
+        // verifichiamo se il db presenta un utente con la mail passata in input
+        connection.query('SELECT user_id, email FROM users WHERE email = "' + email + '";', function(error, result){
+            console.log("ottenute le mail dal db");
+            console.log(result[0]);
+            if(error){
+                console.log("errore nella query ottenimento mail");
+                response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                response.end("ERRORE: errore nella query ottenimento mail");
+                return;
+            }
+
+            // esiste un utente con la mail passata in input
+            if(result[0] !== undefined){
+                var user_id = result[0].user_id;
+                console.log(result[0].email + " " + user_id);
+
+                connection.query('SELECT * FROM (\
+                    SELECT playlists_playlist_id\
+                    FROM playlists_has_songs\
+                    WHERE songs_song_id =' + song_id + '\
+                ) AS subquery JOIN playlists ON subquery.playlists_playlist_id = playlists.playlist_id\
+                WHERE users_user_id =' + user_id + ';', function(error, result){
+
+                    if(error){
+                        console.log("errore nella query ottenimento playlist");
+                        response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                        response.end("ERRORE: errore nella query ottenimento playlist");
+                        return;
+                    }
+
+                    // invio di una risposta "affermativa"
+                    console.log("canzoni ottenute con successo");
+                    response.statusCode = 200;
+                    response.json(result);
+                    response.end();
+                    return;
+                });
+            }
+        });     
+    },
 }
