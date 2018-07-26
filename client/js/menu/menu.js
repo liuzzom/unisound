@@ -62,278 +62,318 @@ function menuToggle(){
 
     // ottenimento delle playlist dal db
     getPlaylists();
+
+    // creazione della lista delle canzoni
+    function fillSongsList(response){
+        var list = $('.songs');
+        // cancella un'eventuale lista creata in precedenza
+        $(list).empty();
+        // ordinamento per nome
+        response.sort(function(a, b) {
+            var nameA = a.title.toUpperCase(); // ignore upper and lowercase
+            var nameB = b.title.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+            // i nomi devono essere uguali
+            return 0;
+        });
+    
+        for(let i = 0; i < response.length; i++){
+            console.log(response[i]);
+
+            // creazione dei vari elementi html
+            var item = document.createElement("LI");
+            var div = document.createElement("DIV");
+            var nomeBrano = document.createElement("SPAN");
+            var artistaBrano = document.createElement("SPAN");
+            var albumBrano = document.createElement("SPAN");
+            var play = document.createElement("IMG");
+            var aggiungiAPlaylist = document.createElement("IMG");
+            var rimuoviDaPlaylist = document.createElement("IMG");
+
+            // impostazione dei dati negli elementi html
+            var title = document.createTextNode(response[i].title);
+            var artist = document.createTextNode(response[i].artist);
+            var album = document.createTextNode(response[i].album);
+            $(nomeBrano).append(title);
+            $(artistaBrano).append(artist);
+            $(albumBrano).append(album);
+            $(play).attr('src', '../../images/songs_buttons/play.png');
+            $(aggiungiAPlaylist).attr('src', '../../images/songs_buttons/plus_black.png');
+            $(rimuoviDaPlaylist).attr('src', '../../images/songs_buttons/minus.png');
+
+            // gestisce la pressione del tasto play
+            play.addEventListener('click', function(event){
+                event.preventDefault();
+
+                $('#song_name').html(response[i].title);
+                $('#author').html(response[i].artist);
+                $('#album').html(response[i].album);
+
+                // $('#song_path').attr('src', response[i].path);
+                var audio = document.getElementById('streaming_bar');
+                audio.src = response[i].path;
+                audio.play();
+            });
+
+            // "assemblaggio" degli elementi
+            $(list).append(item);
+            $(item).append(div);
+            $(div).append(nomeBrano);
+            $(nomeBrano).after(artistaBrano);
+            $(artistaBrano).after(albumBrano);
+            $(div).after(play);
+            $(play).after(aggiungiAPlaylist);
+            $(aggiungiAPlaylist).after(rimuoviDaPlaylist);
+        }
+    }
+
+    // gestione del logout
+    $('.logout').on('click', function(event){
+        event.preventDefault();
+
+        $.get('/logout', function(){
+            // rimozione dei cookie per l'intero sito
+            $.cookie('email', '', { expires: -1, path: '/'});
+            window.location.href = './index.html';
+        });
+    })
+
+    // richiesta delle playlist dell'utente
+    function getPlaylists(){
+        // invio di una richiesta get al server
+        $.get('/getplaylists', function(response){
+            var list = $('.playlists');
+            $(list).empty();
+            for(let i = 0; i < response.length; i++){
+                console.log(response[i]);
+                // creazione dei vari elementi html
+                var item = document.createElement("LI");
+                var div = document.createElement("DIV");
+                var span = document.createElement("SPAN");
+                var img = document.createElement("IMG");
+
+                var length = response[i].length / 60;
+                length = length.toFixed(2);
+            
+                // impostazione dei dati negli elementi html
+                var name = document.createTextNode(response[i].name + " (" + length + ")");
+                $(span).append(name);
+                $(img).attr('src', '../../images/delete_white.png');
+
+                // getstione eliminazione della playlist
+                img.addEventListener('click', function(event){
+                    event.preventDefault();
+
+                    var data = {
+                        playlist_id : response[i].playlist_id
+                    };
+
+                    // richiesta al server per la cancellazione della playlist
+                    $.post('/deleteplaylist', data).done(function(){
+                        alert("Playlist eliminata");
+                        getPlaylists();
+                    }).fail(function(){
+                        alert('Errore nell\'eliminazione della playlist');
+                    });
+                });
+
+                // gestione click sulla playlist
+                div.addEventListener('click', function(event){
+                    event.preventDefault();
+                    console.log("Cliccato sulla playlist");
+
+                    var data = {
+                        playlist_id : response[i].playlist_id
+                    };
+
+                    // richiesta al server dei brani che fanno parte della playlist
+                    $.post('/getSongsOfPlaylist', data).done(function(response){
+                        fillSongsList(response);
+                    }).fail(function(){
+                        alert("Errore ottenimento canzoni della playlist");
+                    });
+                });
+
+                // "assemblaggio" degli elementi
+                $(list).append(item);
+                $(item).append(div);
+                $(div).append(span);
+                $(div).after(img);
+            }
+        });
+    }
+
+    // richiesta delle playlist dell'utente
+    $('.refresh_btn').on('click', function(event){
+        event.preventDefault();
+        getPlaylists();
+
+    });
+
+    // ricerca delle playlist
+    $('.playlist_form').on('submit', function(event){
+        event.preventDefault();
+        // invio di una richiesta al server
+
+        var data = {
+            name : $('#playlist_field').val()
+        };
+
+        $.post('/searchplaylists', data).done(function(response){
+            var list = $('.playlists');
+            $(list).empty();
+            for(let i = 0; i < response.length; i++){
+                console.log(response[i].name);
+                // creazione dei vari elementi html
+                var item = document.createElement("LI");
+                var div = document.createElement("DIV");
+                var span = document.createElement("SPAN");
+                var img = document.createElement("IMG");
+            
+                var length = response[i].length / 60;
+                length = length.toFixed(2);
+
+                // impostazione dei dati negli elementi html
+                var name = document.createTextNode(response[i].name + " (" + length + ")");
+                $(span).append(name);
+                $(img).attr('src', '../../images/delete_white.png');
+
+                // getstione eliminazione della playlist
+                img.addEventListener('click', function(event){
+                    event.preventDefault();
+
+                    var data = {
+                        playlist_id : response[i].playlist_id
+                    };
+
+                    // richiesta al server per la cancellazione della playlist
+                    $.post('/deleteplaylist', data).done(function(){
+                        alert("Playlist eliminata");
+                        getPlaylists();
+                    }).fail(function(){
+                        alert('Errore nell\'eliminazione della playlist');
+                    });
+                });
+
+                // gestione click sulla playlist
+                div.addEventListener('click', function(event){
+                    event.preventDefault();
+                    console.log("Cliccato sulla playlist");
+
+                    var data = {
+                        playlist_id : response[i].playlist_id
+                    };
+
+                    // richiesta al server dei brani che fanno parte della playlist
+                    $.post('/getSongsOfPlaylist', data).done(function(response){
+                        fillSongsList(response);
+                    }).fail(function(){
+                        alert("Errore ottenimento canzoni della playlist");
+                    });
+                });
+
+                // "assemblaggio" degli elementi
+                $(list).append(item);
+                $(item).append(div);
+                $(div).append(span);
+                $(div).after(img);
+            }
+        }).fail(function(){
+            console.log("errore nella ricerca delle playlist");
+        });
+    });
+
+    // ricerca dei brani
+    $('.song_form').on('submit', function(event){
+        event.preventDefault();
+        // invio di una richiesta al server
+
+        var data = {
+            name : $('#song_field').val()
+        };
+
+        $.post('/searchsongs', data).done(function(response){
+            fillSongsList(response);
+        }).fail(function(){
+            console.log("errore nella ricerca dei brani");
+        });
+    });
+
+    // ricerca utenti
+    $('.friend_form').on('submit', function(event){
+        event.preventDefault();
+        // invio di una richiesta al server
+
+        var data = {
+            name : $('#friend_field').val()
+        };
+
+        $.post('/searchusers', data).done(function(response){
+            var list = $('.friends');
+            $(list).empty();
+            for(let i = 0; i < response.length; i++){
+                console.log(response[i]);
+
+                var id = {
+                    friend_id : response[i].user_id
+                };
+
+                $.post('/verifyfriend', id).done(function(result){
+                    // creazione dei vari elementi html
+                    var item = document.createElement("LI");
+                    var div = document.createElement("DIV");
+                    var amico = document.createElement("SPAN");
+                    var add = document.createElement("IMG");
+                    $(add).attr('src', '../../images/friends_buttons/follow.png');
+                    var remove = document.createElement("IMG");
+                    $(remove).attr('src', '../../images/friends_buttons/unfollow.png');
+
+                    var online = "offline";
+                    if(response[i].online === 1){
+                        online = "online";   
+                    }
+
+                    // impostazione dei dati negli elementi html
+                    var nomeECognome = document.createTextNode(response[i].first_name + " " + response[i].last_name + " (" + online + ")");
+                    if(result[0] !== undefined){
+                        $(add).hide();
+                        $(remove).show();
+                    }else{
+                        $(remove).hide();
+                        $(add).show(); 
+                    }
+                    $(amico).append(nomeECognome);
+
+                    add.addEventListener('click', function(){
+                        $(add).hide();
+                        $(remove).show();
+                    });
+
+                    remove.addEventListener('click', function(){
+                        $(remove).hide();
+                        $(add).show();
+                    });
+
+                    // "assemblaggio" degli elementi
+                    $(list).append(item);
+                    $(item).append(div);
+                    $(div).append(amico);
+                    $(div).after(add);
+                    $(add).after(remove);
+                }).fail(function(){
+                    alert("Errore");
+                });
+            }
+        }).fail(function(){
+            console.log("errore nella ricerca dei brani");
+        });
+    });
 }
 
 $(document).ready(menuToggle);
 
-// creazione della lista delle canzoni
-function fillSongsList(response){
-    var list = $('.songs');
-    // cancella un'eventuale lista creata in precedenza
-    $(list).empty();
-    // ordinamento per nome
-    response.sort(function(a, b) {
-        var nameA = a.title.toUpperCase(); // ignore upper and lowercase
-        var nameB = b.title.toUpperCase(); // ignore upper and lowercase
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        // i nomi devono essere uguali
-        return 0;
-    });
-    
-    for(let i = 0; i < response.length; i++){
-        console.log(response[i]);
-
-        // creazione dei vari elementi html
-        var item = document.createElement("LI");
-        var div = document.createElement("DIV");
-        var nomeBrano = document.createElement("SPAN");
-        var artistaBrano = document.createElement("SPAN");
-        var albumBrano = document.createElement("SPAN");
-        var play = document.createElement("IMG");
-        var aggiungiAPlaylist = document.createElement("IMG");
-        var rimuoviDaPlaylist = document.createElement("IMG");
-
-        // impostazione dei dati negli elementi html
-        var title = document.createTextNode(response[i].title);
-        var artist = document.createTextNode(response[i].artist);
-        var album = document.createTextNode(response[i].album);
-        $(nomeBrano).append(title);
-        $(artistaBrano).append(artist);
-        $(albumBrano).append(album);
-        $(play).attr('src', '../../images/songs_buttons/play.png');
-        $(aggiungiAPlaylist).attr('src', '../../images/songs_buttons/plus_black.png');
-        $(rimuoviDaPlaylist).attr('src', '../../images/songs_buttons/minus.png');
-
-        // gestisce la pressione del tasto play
-        play.addEventListener('click', function(event){
-            event.preventDefault();
-
-            $('#song_name').html(response[i].title);
-            $('#author').html(response[i].artist);
-            $('#album').html(response[i].album);
-
-            // $('#song_path').attr('src', response[i].path);
-            var audio = document.getElementById('streaming_bar');
-            audio.src = response[i].path;
-            audio.play();
-        });
-
-        // "assemblaggio" degli elementi
-        $(list).append(item);
-        $(item).append(div);
-        $(div).append(nomeBrano);
-        $(nomeBrano).after(artistaBrano);
-        $(artistaBrano).after(albumBrano);
-        $(div).after(play);
-        $(play).after(aggiungiAPlaylist);
-        $(aggiungiAPlaylist).after(rimuoviDaPlaylist);
-    }
-}
-
-// gestione del logout
-$('.logout').on('click', function(event){
-    event.preventDefault();
-
-    $.get('/logout', function(){
-        // rimozione dei cookie per l'intero sito
-        $.cookie('email', '', { expires: -1, path: '/'});
-        window.location.href = './index.html';
-    });
-})
-
-// richiesta delle playlist dell'utente
-function getPlaylists(){
-    // invio di una richiesta get al server
-    $.get('/getplaylists', function(response){
-        var list = $('.playlists');
-        $(list).empty();
-        for(let i = 0; i < response.length; i++){
-            console.log(response[i]);
-            // creazione dei vari elementi html
-            var item = document.createElement("LI");
-            var div = document.createElement("DIV");
-            var span = document.createElement("SPAN");
-            var img = document.createElement("IMG");
-            
-            // impostazione dei dati negli elementi html
-            var name = document.createTextNode(response[i].name);
-            $(span).append(name);
-            $(img).attr('src', '../../images/delete_white.png');
-
-            // getstione eliminazione della playlist
-            img.addEventListener('click', function(event){
-                event.preventDefault();
-
-                var data = {
-                    playlist_id : response[i].playlist_id
-                };
-
-                // richiesta al server per la cancellazione della playlist
-                $.post('/deleteplaylist', data).done(function(){
-                    alert("Playlist eliminata");
-                    getPlaylists();
-                }).fail(function(){
-                    alert('Errore nell\'eliminazione della playlist');
-                });
-            });
-
-            // gestione click sulla playlist
-            div.addEventListener('click', function(event){
-                event.preventDefault();
-                console.log("Cliccato sulla playlist");
-
-                var data = {
-                    playlist_id : response[i].playlist_id
-                };
-
-                // richiesta al server dei brani che fanno parte della playlist
-                $.post('/getSongsOfPlaylist', data).done(function(response){
-                    fillSongsList(response);
-                }).fail(function(){
-                    alert("Errore ottenimento canzoni della playlist");
-                });
-            });
-
-            // "assemblaggio" degli elementi
-            $(list).append(item);
-            $(item).append(div);
-            $(div).append(span);
-            $(div).after(img);
-        }
-    });
-}
-
-// richiesta delle playlist dell'utente
-$('.refresh_btn').on('click', function(event){
-    event.preventDefault();
-    getPlaylists();
-
-});
-
-// ricerca delle playlist
-$('.playlist_form').on('submit', function(event){
-    event.preventDefault();
-     // invio di una richiesta al server
-
-     var data = {
-        name : $('#playlist_field').val()
-    };
-
-    $.post('/searchplaylists', data).done(function(response){
-        var list = $('.playlists');
-        $(list).empty();
-        for(let i = 0; i < response.length; i++){
-            console.log(response[i].name);
-            // creazione dei vari elementi html
-            var item = document.createElement("LI");
-            var div = document.createElement("DIV");
-            var span = document.createElement("SPAN");
-            var img = document.createElement("IMG");
-            
-            // impostazione dei dati negli elementi html
-            var name = document.createTextNode(response[i].name);
-            $(span).append(name);
-            $(img).attr('src', '../../images/delete_white.png');
-
-            // getstione eliminazione della playlist
-            img.addEventListener('click', function(event){
-                event.preventDefault();
-
-                var data = {
-                    playlist_id : response[i].playlist_id
-                };
-
-                // richiesta al server per la cancellazione della playlist
-                $.post('/deleteplaylist', data).done(function(){
-                    alert("Playlist eliminata");
-                    getPlaylists();
-                }).fail(function(){
-                    alert('Errore nell\'eliminazione della playlist');
-                });
-            });
-
-            // gestione click sulla playlist
-            div.addEventListener('click', function(event){
-                event.preventDefault();
-                console.log("Cliccato sulla playlist");
-
-                var data = {
-                    playlist_id : response[i].playlist_id
-                };
-
-                // richiesta al server dei brani che fanno parte della playlist
-                $.post('/getSongsOfPlaylist', data).done(function(response){
-                    fillSongsList(response);
-                }).fail(function(){
-                    alert("Errore ottenimento canzoni della playlist");
-                });
-            });
-
-            // "assemblaggio" degli elementi
-            $(list).append(item);
-            $(item).append(div);
-            $(div).append(span);
-            $(div).after(img);
-        }
-    }).fail(function(){
-        console.log("errore nella ricerca delle playlist");
-    });
-});
-
-// ricerca dei brani
-$('.song_form').on('submit', function(event){
-    event.preventDefault();
-    // invio di una richiesta al server
-
-    var data = {
-        name : $('#song_field').val()
-    };
-
-    $.post('/searchsongs', data).done(function(response){
-        fillSongsList(response);
-    }).fail(function(){
-        console.log("errore nella ricerca dei brani");
-    });
-});
-
-// ricerca utenti
-$('.friend_form').on('submit', function(event){
-    event.preventDefault();
-    // invio di una richiesta al server
-
-    var data = {
-        name : $('#friend_field').val()
-    };
-
-    $.post('/searchusers', data).done(function(response){
-        var list = $('.friends');
-        $(list).empty();
-        for(let i = 0; i < response.length; i++){
-            console.log(response[i]);
-
-            // creazione dei vari elementi html
-            var item = document.createElement("LI");
-            var div = document.createElement("DIV");
-            var amico = document.createElement("SPAN");
-            var addOrRemove = document.createElement("IMG");
-
-            // impostazione dei dati negli elementi html
-            var nomeECognome = document.createTextNode(response[i].first_name + " " + response[i].last_name);
-            $(addOrRemove).attr('src', '../../images/friends_buttons/follow.png');
-            $(amico).append(nomeECognome);
-
-            // "assemblaggio" degli elementi
-            $(list).append(item);
-            $(item).append(div);
-            $(div).append(amico);
-            $(div).after(addOrRemove);
-        }
-    }).fail(function(){
-        console.log("errore nella ricerca dei brani");
-    });
-});

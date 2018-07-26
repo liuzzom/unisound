@@ -286,5 +286,19 @@ app.post('/getSongsOfPlaylist', function(request, response){
   playlists_db.getSongsOfPlaylist(response, connection, playlist_id);
 });
 
+/**
+ * @author Antonino Mauro Liuzzo
+ * @author Federico Augello
+ * @description handler della richiesta di verifica di "amicizia" tra due utenti
+ */
+app.post('/verifyfriend', function(request, response){
+  console.log("ricevuta richiesta per verifica amicizia");
+  
+  var email = request.cookies.email;
+  var friend_id = request.body.friend_id;
+
+  friends_db.verifyfriend(response, connection, email, friend_id);
+});
+
 // gestione dei file statici (html, css, js, ecc...)
 app.use(express.static('client'));

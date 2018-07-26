@@ -33,37 +33,38 @@ function validation(){
             }
         }
     });
+
+    // fa l'hash md5 (possibilità di utilizzare aes) della password
+    function encrypt() {
+        var pass=document.getElementById('password').value;
+        var hash = CryptoJS.MD5(pass);
+        document.getElementById('password').value=hash;
+        return true;
+    }
+
+    // gestione dell'evento login
+    $('#login_form').on('submit', function(event){
+        event.preventDefault();
+        encrypt();
+
+        var user = {
+            email : $('#email').val(),
+            password : $('#password').val(),
+        };
+
+        // invio della richiesta post
+        $.post('/login', user).done(function(){
+            // Create expiring cookie (2 days), valid across entire site (commento preso dal file readme)
+            // libreria utilizzata https://github.com/carhartl/jquery-cookie
+            // lato server, i cookie (in questo caso) vengono utilizzati per vedere se un utente ha fatto il login oppure no
+            $.cookie('email', $('#email').val(), { expires: 2, path: '/' });
+            window.location.href = './home.html';
+        }).fail(function(){
+            alert("ERRORE: verifica le credenziali e riprova");
+        });
+    });
 }
 
 // the function validation will be executed when the html file will be completely parsed
 $(document).ready(validation);
 
-// fa l'hash md5 (possibilità di utilizzare aes) della password
-function encrypt() {
-    var pass=document.getElementById('password').value;
-    var hash = CryptoJS.MD5(pass);
-    document.getElementById('password').value=hash;
-    return true;
-}
-
-// gestione dell'evento login
-$('#login_form').on('submit', function(event){
-    event.preventDefault();
-    encrypt();
-
-    var user = {
-        email : $('#email').val(),
-        password : $('#password').val(),
-    };
-
-    // invio della richiesta post
-    $.post('/login', user).done(function(){
-        // Create expiring cookie (2 days), valid across entire site (commento preso dal file readme)
-        // libreria utilizzata https://github.com/carhartl/jquery-cookie
-        // lato server, i cookie vengono utilizzati per vedere se un utente ha fatto il login oppure no
-        $.cookie('email', $('#email').val(), { expires: 2, path: '/' });
-        window.location.href = './home.html';
-    }).fail(function(){
-        alert("ERRORE: verifica le credenziali e riprova");
-    });
-});

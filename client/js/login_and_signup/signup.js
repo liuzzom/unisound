@@ -72,49 +72,50 @@ function validation(){
                 $('#signup').show();
             }
         }
-    })
+    });
+
+    function hasUpperCase(password){
+        for(var i = 0; i < password.length; i++){
+            if(password[i] === password[i].toUpperCase()){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    // fa l'hash md5 (possibilità di utilizzare aes) della password
+    function encrypt() {
+        var pass=document.getElementById('password').value;
+        var hash = CryptoJS.MD5(pass);
+        document.getElementById('password').value=hash;
+        return true;
+    }
+    
+    // invio dei dati e gestione della risposta
+    $('#signup_form').on('submit', function(event){
+        event.preventDefault();
+        encrypt();
+    
+        
+        var user = {
+            fisrt_name : $('#name').val(),
+            last_name : $('#surname').val(),
+            email : $('#email').val(),
+            password : $('#password').val(),
+        };
+    
+        // richiesta post al server
+        $.post('/signup', user)
+            .done(function(){
+                alert("Account registrato. Procedi al login");
+                window.location.href = './index.html';
+            })
+            .fail(function(){
+                alert('ERRORE: Verifica i dati inseriti e riprova');
+            });
+    });
 }
 
 // the function validate will be executed when the html file will be completely parsed
 $(document).ready(validation);
 
-function hasUpperCase(password){
-    for(var i = 0; i < password.length; i++){
-        if(password[i] === password[i].toUpperCase()){
-            return true;
-        }
-    }
-    return false;
-}
-
-// fa l'hash md5 (possibilità di utilizzare aes) della password
-function encrypt() {
-    var pass=document.getElementById('password').value;
-    var hash = CryptoJS.MD5(pass);
-    document.getElementById('password').value=hash;
-    return true;
-}
-
-// invio dei dati e gestione della risposta
-$('#signup_form').on('submit', function(event){
-    event.preventDefault();
-    encrypt();
-
-    
-    var user = {
-        fisrt_name : $('#name').val(),
-        last_name : $('#surname').val(),
-        email : $('#email').val(),
-        password : $('#password').val(),
-    };
-
-    // richiesta post al server
-    $.post('/signup', user)
-        .done(function(){
-            alert("Account registrato. Procedi al login");
-            window.location.href = './index.html';
-        })
-        .fail(function(){
-            alert('ERRORE: Verifica i dati inseriti e riprova');
-        });
-});

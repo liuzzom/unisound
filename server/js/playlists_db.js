@@ -22,6 +22,7 @@ module.exports = {
                 var user_id = result[0].user_id;
                 console.log(result[0].email + " " + user_id);
 
+                // verifica se l'utente ha già creato una playlist con il nome desiderato
                 connection.query('SELECT * FROM playlists WHERE name = "' + name + '" and users_user_id = ' + user_id + ';', function(error, result){
                     console.log("query di ottenimento playlist dal db");
                     if(error){
