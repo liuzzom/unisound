@@ -316,4 +316,44 @@ module.exports = {
             });
         });
     },
+
+    removeFromPlaylist : function(response, connection, song_id, playlist_id, song_length){
+        // cancellazione dalla tabella playlist has songs
+        connection.query('DELETE FROM playlists_has_songs WHERE (`playlists_playlist_id`= ' + playlist_id + ' AND `songs_song_id`= '+ song_id +');', function(error, result){
+            if(error){
+                console.log("errore nella cancellazione in playlist has songs");
+                response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                response.end("ERRORE: errore nella cancellazione in playlist has songs");
+                return;
+            }
+
+            // ottenimento della playlist a cui modificare la lunghezza
+            connection.query('SELECT * FROM playlists WHERE playlist_id = ' + playlist_id + ';', function(error, result){
+                if(error){
+                    console.log("errore nell'ottenimento id playlist");
+                    response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                    response.end("ERRORE: errore nell'ottenimento id playlist");
+                    return;
+                }
+
+                var old_length = Number(result[0].length);
+                var new_length = Number(old_length) - Number(song_length);
+
+                connection.query('UPDATE playlists SET `length` = ' + new_length + ' WHERE (`playlist_id` = ' + playlist_id + ');', function(error, result){
+                    if(error){
+                        console.log("errore nella modifica della lunghezza");
+                        response.writeHead(400, {"Content-Type": "text/html; charset=utf-8"});
+                        response.end("ERRORE: errore nella modifica della lunghezza");
+                        return;
+                    }
+
+                     // invio di una risposta "affermativa"
+                    console.log("Brano rimosso con successo");
+                    response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+                    response.end("Brano rimosso con successo");
+                    return;
+                });
+            });
+        });
+    },
 }

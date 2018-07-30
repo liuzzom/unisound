@@ -370,5 +370,20 @@ app.post('/addToPlaylist', function(request, response){
   playlists_db.addToPlaylist(response, connection, song_id, playlist_id, song_length);
 });
 
+/**
+ * @author Antonino Mauro Liuzzo
+ * @author Federico Augello
+ * @description handler della richiesta di rimozione di un brano ad una playlist
+ */
+app.post('/removeFromPlaylist', function(request, response){
+  console.log("ricevuta richiesta rimozione brano alla playlist");
+
+  var song_id = request.body.song_id;
+  var playlist_id = request.body.playlist_id;
+  var song_length = request.body.song_length;
+
+  playlists_db.removeFromPlaylist(response, connection, song_id, playlist_id, song_length);
+});
+
 // gestione dei file statici (html, css, js, ecc...)
 app.use(express.static('client'));

@@ -66,7 +66,7 @@ function menuToggle(){
     // creazione della lista delle playlist senza il brano
     function showPlaylistsWithoutThis(response, song_id, song_length){
         if($(window).width() > 800){
-            alert("selezionare una delle playlist della sezione a sinstra");
+            alert("selezionare una delle playlist della sezione a sinistra");
         }
 
         var list = $('.playlists');
@@ -115,7 +115,7 @@ function menuToggle(){
     // creazione della lista delle playlist con il brano
     function showPlaylistsWithThis(response, song_id, song_length){
         if($(window).width() > 800){
-            alert("selezionare una delle playlist della sezione a sinstra");
+            alert("selezionare una delle playlist della sezione a sinistra");
         }
 
         var list = $('.playlists');
@@ -134,6 +134,24 @@ function menuToggle(){
             var name = document.createTextNode(response[i].name + " (" + length + ")");
             $(span).append(name);
             $(img).attr('src', '../../images/minus_white.png');
+
+            // gestione del click sul pulsante di aggiunta alla playlist
+            img.addEventListener('click', function(event){
+                event.preventDefault();
+
+                var data = {
+                    playlist_id : response[i].playlist_id,
+                    song_id : song_id,
+                    song_length : song_length
+                };
+
+                $.post('/removeFromPlaylist', data).done(function(){
+                    alert("Canzone rimossa dalla playlist");
+                    getPlaylists();
+                }).fail(function(){
+                    alert("Errore nella cancellazione dalla playlist");
+                });
+            });
 
             // "assemblaggio" degli elementi
             $(list).append(item);
@@ -229,6 +247,7 @@ function menuToggle(){
                 }
 
                 var song_id = response[i].song_id;
+                var song_length = response[i].length;
                 var data = {
                     song_id : response[i].song_id
                 };
