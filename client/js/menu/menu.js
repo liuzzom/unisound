@@ -64,7 +64,7 @@ function menuToggle(){
     getPlaylists();
 
     // creazione della lista delle playlist senza il brano
-    function showPlaylistsWithoutThis(response, song_id){
+    function showPlaylistsWithoutThis(response, song_id, song_length){
         if($(window).width() > 800){
             alert("selezionare una delle playlist della sezione a sinstra");
         }
@@ -86,6 +86,24 @@ function menuToggle(){
             $(span).append(name);
             $(img).attr('src', '../../images/plus_white.png');
 
+            // gestione del click sul pulsante di aggiunta alla playlist
+            img.addEventListener('click', function(event){
+                event.preventDefault();
+
+                var data = {
+                    playlist_id : response[i].playlist_id,
+                    song_id : song_id,
+                    song_length : song_length
+                };
+
+                $.post('/addToPlaylist', data).done(function(){
+                    alert("Canzone inserita nella playlist");
+                    getPlaylists();
+                }).fail(function(){
+                    alert("Errore nell'inserimento nella playlist");
+                });
+            });
+
             // "assemblaggio" degli elementi
             $(list).append(item);
             $(item).append(div);
@@ -95,7 +113,7 @@ function menuToggle(){
     }
 
     // creazione della lista delle playlist con il brano
-    function showPlaylistsWithThis(response, song_id){
+    function showPlaylistsWithThis(response, song_id, song_length){
         if($(window).width() > 800){
             alert("selezionare una delle playlist della sezione a sinstra");
         }
@@ -191,12 +209,13 @@ function menuToggle(){
                 }
 
                 var song_id = response[i].song_id;
+                var song_length = response[i].length;
                 var data = {
                     song_id : response[i].song_id
                 };
 
                 $.post('/getPlaylistsWithoutThis', data).done(function(response){
-                    showPlaylistsWithoutThis(response, song_id);
+                    showPlaylistsWithoutThis(response, song_id, song_length);
                 }).fail(function(){
                     alert("Errore");
                 });
@@ -215,7 +234,7 @@ function menuToggle(){
                 };
 
                 $.post('/getPlaylistsWithThis', data).done(function(response){
-                    showPlaylistsWithThis(response, song_id);
+                    showPlaylistsWithThis(response, song_id, song_length);
                 }).fail(function(){
                     alert("Errore");
                 });

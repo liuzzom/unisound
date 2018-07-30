@@ -355,5 +355,21 @@ app.post('/getPlaylistsWithThis', function(request, response){
 
   playlists_db.getPlaylistsWithThis(response, connection, email, song_id);
 });
+
+/**
+ * @author Antonino Mauro Liuzzo
+ * @description handler della richiesta di aggiunta di un brano ad una playlist
+ */
+app.post('/addToPlaylist', function(request, response){
+  console.log("ricevuta richiesta aggiunta brano alla playlist");
+  console.log("song id " + request.body.song_id + " playlist id " + request.body.playlist_id + " song length " + request.body.song_length);
+
+  var song_id = request.body.song_id;
+  var playlist_id = request.body.playlist_id;
+  var song_length = request.body.song_length;
+
+  playlists_db.addToPlaylist(response, connection, song_id, playlist_id, song_length);
+});
+
 // gestione dei file statici (html, css, js, ecc...)
 app.use(express.static('client'));
