@@ -362,7 +362,6 @@ app.post('/getPlaylistsWithThis', function(request, response){
  */
 app.post('/addToPlaylist', function(request, response){
   console.log("ricevuta richiesta aggiunta brano alla playlist");
-  console.log("song id " + request.body.song_id + " playlist id " + request.body.playlist_id + " song length " + request.body.song_length);
 
   var song_id = request.body.song_id;
   var playlist_id = request.body.playlist_id;

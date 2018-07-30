@@ -298,8 +298,6 @@ module.exports = {
 
                 var old_length = Number(result[0].length);
                 var new_length = Number(old_length) + Number(song_length);
-                console.log(old_length + " " + song_length + " " + new_length);
-                console.log(typeof(old_length) + " " + typeof(song_length) + " " + typeof(new_length));
 
                 connection.query('UPDATE playlists SET `length` = ' + new_length + ' WHERE (`playlist_id` = ' + playlist_id + ');', function(error, result){
                     if(error){
