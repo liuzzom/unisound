@@ -377,6 +377,10 @@ function menuToggle(){
                     event.preventDefault();
                     console.log("Cliccato sulla playlist");
 
+                    if($(window).width() <= 800){
+                        $('.playlist_button').click();
+                    }
+                    
                     var data = {
                         playlist_id : response[i].playlist_id
                     };
