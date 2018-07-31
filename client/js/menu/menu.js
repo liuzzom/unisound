@@ -529,7 +529,7 @@ function menuToggle(){
         $.post('/searchusers', data).done(function(response){
             var list = $('.friends');
             $(list).empty();
-            // ordinamento utenti cercati per cognome 
+            // ordinamento per cognome utenti cercati
             response.sort(function(a, b) {
                 var nameA = a.last_name.toUpperCase(); // ignore upper and lowercase
                 var nameB = b.last_name.toUpperCase(); // ignore upper and lowercase
@@ -538,9 +538,19 @@ function menuToggle(){
                 }
                 if (nameA > nameB) {
                     return 1;
+                } if (nameA == nameB) {
+                    // se il cognome è uguale
+                    var nameC = a.first_name.toUpperCase(); // ignore upper and lowercase
+                    var nameD = b.first_name.toUpperCase(); // ignore upper and lowercase
+                    if(nameC < nameD) {
+                        return -1;
+                    }
+                    if (nameC > nameD) {
+                        return 1;
+                    }
+                    // se nome e cognome sono uguali
+                    return 0;
                 }
-                // i nomi devono essere uguali
-                return 0;
             });
             for(let i = 0; i < response.length; i++){
                 console.log(response[i]);
