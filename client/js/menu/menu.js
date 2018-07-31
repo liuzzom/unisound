@@ -78,8 +78,10 @@ function menuToggle(){
             var span = document.createElement("SPAN");
             var img = document.createElement("IMG");
 
-            var length = response[i].length / 60;
-            length = length.toFixed(2);
+            // coversione della lunghezza della playlist in mm : ss
+            var minutes = Math.floor(response[i].length / 60);
+            var seconds = response[i].length - minutes * 60;
+            var length = minutes + ":" + seconds;
         
             // impostazione dei dati negli elementi html
             var name = document.createTextNode(response[i].name + " (" + length + ")");
@@ -98,6 +100,10 @@ function menuToggle(){
 
                 $.post('/addToPlaylist', data).done(function(){
                     alert("Canzone inserita nella playlist");
+                    // nella schermata mobile, chiude la sezione playlist
+                    if($(window).width() <= 800){
+                        $('.playlist_button').click();
+                    }
                     getPlaylists();
                 }).fail(function(){
                     alert("Errore nell'inserimento nella playlist");
@@ -127,8 +133,10 @@ function menuToggle(){
             var span = document.createElement("SPAN");
             var img = document.createElement("IMG");
 
-            var length = response[i].length / 60;
-            length = length.toFixed(2);
+            // coversione della lunghezza della playlist in mm : ss
+            var minutes = Math.floor(response[i].length / 60);
+            var seconds = response[i].length - minutes * 60;
+            var length = minutes + ":" + seconds;
         
             // impostazione dei dati negli elementi html
             var name = document.createTextNode(response[i].name + " (" + length + ")");
@@ -147,6 +155,10 @@ function menuToggle(){
 
                 $.post('/removeFromPlaylist', data).done(function(){
                     alert("Canzone rimossa dalla playlist");
+                    // nella schermata mobile, chiude la sezione playlist
+                    if($(window).width() <= 800){
+                        $('.playlist_button').click();
+                    }
                     getPlaylists();
                 }).fail(function(){
                     alert("Errore nella cancellazione dalla playlist");
@@ -298,9 +310,11 @@ function menuToggle(){
                 var span = document.createElement("SPAN");
                 var img = document.createElement("IMG");
 
-                var length = response[i].length / 60;
-                length = length.toFixed(2);
-            
+                // coversione della lunghezza della playlist in mm : ss
+                var minutes = Math.floor(response[i].length / 60);
+                var seconds = response[i].length - minutes * 60;
+                var length = minutes + ":" + seconds; 
+
                 // impostazione dei dati negli elementi html
                 var name = document.createTextNode(response[i].name + " (" + length + ")");
                 $(span).append(name);
