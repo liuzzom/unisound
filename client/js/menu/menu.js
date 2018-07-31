@@ -321,6 +321,8 @@ function menuToggle(){
         $.get('/logout', function(){
             // rimozione dei cookie per l'intero sito
             $.cookie('email', '', { expires: -1, path: '/'});
+            $.cookie('current_song', '', { expires: -1, path: '/'});
+            $.cookie('playing_queue', '', { expires: -1, path: '/'});
             window.location.href = './index.html';
         });
     })
@@ -654,11 +656,13 @@ function menuToggle(){
 
     // inizializzazione della pagina
     function init(){
-        // ottiene il brano corrente dai cookie lo setta nella streaming bar
-        current_song = $.parseJSON($.cookie('current_song'));
-        // ottiene la coda di riproduzione dai cookie
-        playing_queue = $.parseJSON($.cookie('playing_queue'));
-
+        
+        if($.cookie('current_song') !== undefined && $.cookie('playing_queue') !== undefined){
+            // ottiene il brano corrente dai cookie lo setta nella streaming bar
+            current_song = $.parseJSON($.cookie('current_song'));
+            // ottiene la coda di riproduzione dai cookie
+            playing_queue = $.parseJSON($.cookie('playing_queue'));
+        }
 
         // se i cookie contengono un brano 
         if(current_song !== undefined){
