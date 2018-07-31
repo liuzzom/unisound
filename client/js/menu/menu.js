@@ -359,17 +359,21 @@ function menuToggle(){
                 img.addEventListener('click', function(event){
                     event.preventDefault();
 
-                    var data = {
-                        playlist_id : response[i].playlist_id
-                    };
+                    var sure = confirm("Vuoi cancellare la playlist?");
 
-                    // richiesta al server per la cancellazione della playlist
-                    $.post('/deleteplaylist', data).done(function(){
-                        alert("Playlist eliminata");
-                        getPlaylists();
-                    }).fail(function(){
-                        alert('Errore nell\'eliminazione della playlist');
-                    });
+                    if(sure){
+                        var data = {
+                            playlist_id : response[i].playlist_id
+                        };
+    
+                        // richiesta al server per la cancellazione della playlist
+                        $.post('/deleteplaylist', data).done(function(){
+                            alert("Playlist eliminata");
+                            getPlaylists();
+                        }).fail(function(){
+                            alert('Errore nell\'eliminazione della playlist');
+                        });
+                    }
                 });
 
                 // gestione click sulla playlist
@@ -624,24 +628,27 @@ function menuToggle(){
         event.preventDefault();
 
         if(playing_queue !== undefined){
-            // aggiornamento del brano corrente e dell'indice
-            current_song_index = ((current_song_index - 1) + playing_queue.length) % playing_queue.length;
-            console.log(current_song_index);
-
             var audio = document.getElementById('streaming_bar');
             var paused = audio.paused;
 
-            current_song = playing_queue[current_song_index];
-            $('#song_name').html(current_song.title);
-            $('#author').html(current_song.artist);
-            $('#album').html(current_song.album);
-            audio.src = current_song.path; 
+            if(audio.currentTime > 3){
+                audio.currentTime = 0;
+            }else{
+                // aggiornamento del brano corrente e dell'indice
+                current_song_index = ((current_song_index - 1) + playing_queue.length) % playing_queue.length;
 
-            if(!paused){
-                audio.play();
+                current_song = playing_queue[current_song_index];
+                $('#song_name').html(current_song.title);
+                $('#author').html(current_song.artist);
+                $('#album').html(current_song.album);
+                audio.src = current_song.path; 
+
+                if(!paused){
+                    audio.play();
+                }
+
+                $.cookie('current_song', JSON.stringify(current_song), { expires: 1, path: '/' });
             }
-
-            $.cookie('current_song', JSON.stringify(current_song), { expires: 1, path: '/' });
         }
     });
 
