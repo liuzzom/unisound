@@ -333,6 +333,19 @@ function menuToggle(){
         $.get('/getplaylists', function(response){
             var list = $('.playlists');
             $(list).empty();
+            // ordinamento lista playlist
+            response.sort(function(a, b) {
+                var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+                var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+                // i nomi devono essere uguali
+                return 0;
+            });
             for(let i = 0; i < response.length; i++){
                 console.log(response[i]);
                 // creazione dei vari elementi html
@@ -516,6 +529,19 @@ function menuToggle(){
         $.post('/searchusers', data).done(function(response){
             var list = $('.friends');
             $(list).empty();
+            // ordinamento utenti cercati per cognome 
+            response.sort(function(a, b) {
+                var nameA = a.last_name.toUpperCase(); // ignore upper and lowercase
+                var nameB = b.last_name.toUpperCase(); // ignore upper and lowercase
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+                // i nomi devono essere uguali
+                return 0;
+            });
             for(let i = 0; i < response.length; i++){
                 console.log(response[i]);
 
