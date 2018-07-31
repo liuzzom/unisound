@@ -81,7 +81,13 @@ function menuToggle(){
             // coversione della lunghezza della playlist in mm : ss
             var minutes = Math.floor(response[i].length / 60);
             var seconds = response[i].length - minutes * 60;
-            var length = minutes + ":" + seconds;
+            if(minutes < 10){
+                minutes = "0" + minutes;
+            }
+            if(seconds < 10){
+                seconds = "0" + seconds;
+            }
+            var length = minutes + ":" + seconds; 
         
             // impostazione dei dati negli elementi html
             var name = document.createTextNode(response[i].name + " (" + length + ")");
@@ -136,7 +142,13 @@ function menuToggle(){
             // coversione della lunghezza della playlist in mm : ss
             var minutes = Math.floor(response[i].length / 60);
             var seconds = response[i].length - minutes * 60;
-            var length = minutes + ":" + seconds;
+            if(minutes < 10){
+                minutes = "0" + minutes;
+            }
+            if(seconds < 10){
+                seconds = "0" + seconds;
+            }
+            var length = minutes + ":" + seconds; 
         
             // impostazione dei dati negli elementi html
             var name = document.createTextNode(response[i].name + " (" + length + ")");
@@ -313,6 +325,12 @@ function menuToggle(){
                 // coversione della lunghezza della playlist in mm : ss
                 var minutes = Math.floor(response[i].length / 60);
                 var seconds = response[i].length - minutes * 60;
+                if(minutes < 10){
+                    minutes = "0" + minutes;
+                }
+                if(seconds < 10){
+                    seconds = "0" + seconds;
+                }
                 var length = minutes + ":" + seconds; 
 
                 // impostazione dei dati negli elementi html
