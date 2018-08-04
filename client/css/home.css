@@ -120,7 +120,7 @@ body {
 }
 
 /*Stile per barra che si attiva con Chrome*/
-.chrome_button {
+.chrome_button, .def_button {
     float: left;
     height: 50px;
     width: 50px;
@@ -130,7 +130,7 @@ body {
 }
 
 /*Stile per barra che si attiva con Chrome*/
-.chrome_streaming_bar {
+.chrome_streaming_bar, .def_bar {
     width: calc(100% - 100px) !important;
 }
 

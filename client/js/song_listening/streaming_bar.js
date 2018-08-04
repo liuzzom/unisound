@@ -17,6 +17,8 @@ function buttonStyle(){
     if(isFirefox){
         $('#prev_song').attr('class', 'firefox_button');
         $('#next_song').attr('class', 'firefox_button');
+        $('.prev_song_img').attr('src', './images/audio_buttons/previous.png');
+        $('.next_song_img').attr('src', './images/audio_buttons/next.png');
     }
 
     if(isChrome){
@@ -33,7 +35,8 @@ function buttonStyle(){
         $('.prev_song_img').attr('src', './images/audio_buttons/previous.png');
         $('.next_song_img').attr('src', './images/audio_buttons/next.png');
         $('#streaming_section').attr('class', 'edge_streaming_section');
-        
+        $('.prev_song_img').attr('src', './images/audio_buttons/previous.png');
+        $('.next_song_img').attr('src', './images/audio_buttons/next.png');
     }
 }
 
