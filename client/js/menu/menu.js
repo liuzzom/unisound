@@ -256,7 +256,6 @@ function menuToggle(){
                 $('#album').html(response[i].album);
 
                 var audio = document.getElementById('streaming_bar');
-                console.log(response[i].path);
                 audio.src = response[i].path;
                 audio.play();
             });

@@ -34,7 +34,7 @@ connection.connect(function(error){
 });
 
 // numero di porta connessione TCP
-var port = 3000;
+var port = 8080;
 
 // configurazione parsing json
 app.use(bodyParser.json());
@@ -50,13 +50,6 @@ var client = 'client';
 
 // messa in ascolto sulla porta specificata. Viene eseguita prima dell'esecuzione della connessione al DB
 app.listen(port, () => console.log('Server in ascolto sulla porta ' + port));
-
-
-// gestione dei file statici (html, css, js, ecc...)
-console.log(path.join(__dirname, prev_dir, 'songs'));
-app.use('/songs', express.static(path.join(__dirname, prev_dir, 'songs')));
-app.use(express.static('client'));
-
 
 // richiesta get della main page
 app.get('/', function(request, response){
@@ -391,3 +384,6 @@ app.post('/removeFromPlaylist', function(request, response){
 
   playlists_db.removeFromPlaylist(response, connection, song_id, playlist_id, song_length);
 });
+
+// gestione dei file statici (html, css, js, ecc...)
+app.use(express.static('client'));

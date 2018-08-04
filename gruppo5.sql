@@ -64,7 +64,7 @@ CREATE TABLE `playlists` (
 
 LOCK TABLES `playlists` WRITE;
 /*!40000 ALTER TABLE `playlists` DISABLE KEYS */;
-INSERT INTO `playlists` VALUES (1,'Rock',2119,1),(9,'FF',510,1);
+INSERT INTO `playlists` VALUES (1,'Rock',1671,1),(9,'FF',510,1);
 /*!40000 ALTER TABLE `playlists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +92,7 @@ CREATE TABLE `playlists_has_songs` (
 
 LOCK TABLES `playlists_has_songs` WRITE;
 /*!40000 ALTER TABLE `playlists_has_songs` DISABLE KEYS */;
-INSERT INTO `playlists_has_songs` VALUES (1,4),(9,6),(1,9),(1,11),(1,13),(1,15),(1,22),(1,23),(9,23),(9,24);
+INSERT INTO `playlists_has_songs` VALUES (1,4),(9,6),(1,9),(1,11),(1,13),(1,22),(1,23),(9,23),(9,24);
 /*!40000 ALTER TABLE `playlists_has_songs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +120,7 @@ CREATE TABLE `songs` (
 
 LOCK TABLES `songs` WRITE;
 /*!40000 ALTER TABLE `songs` DISABLE KEYS */;
-INSERT INTO `songs` VALUES (1,'Apply Some Pressure','Maximo Park','A Certain Trigger',200,'songs/Apply_Some_Pressure.mp3'),(2,'Atlantide','Frencesco De Gregori','Vivavoce',229,'songs/Atlantide.mp3'),(3,'Piano Man','Billy Joel','The Essential Billy Joel',337,'songs/Billy_Joel_Piano_Man.mp3'),(4,'Blackbird','Alter Bridge','Blackbird',478,'songs/Blackbird.mp3'),(5,'Do You Love Me?','The Contours','Do You Love Me',173,'songs/do_you_love_me.mp3'),(6,'Evil And A Heathen','Franz Ferdinand','You Could Have It So Much Better',125,'songs/Evil_and_a_Heathen.mp3'),(7,'Gabriel\'s Oboe','Ennio Morricone','The Mission (soundtrack)',149,'songs/Gabriel\'s_Oboe.mp3'),(8,'Get Up And Get Down','The Dramatics','Watcha See Is Watcha Get',188,'songs/get_up_and_get_down.mp3'),(9,'Helicopter','Bloc Party','Silent Alarm',220,'songs/Helicopter.mp3'),(10,'Help Me, Rhonda','The Beach Boys','Help Me, Rhonda/Kiss Me Baby',164,'songs/help_me_rhonda.mp3'),(11,'Jeremy','Pearl Jam','Ten',319,'songs/Jeremy.mp3'),(12,'Khorakhanè','Fabrizio De Andrè','Anime Salve',332,'songs/Khorakhanè.mp3'),(13,'Narcotic','Liquido','Narcotic - EP',231,'songs/liquido_narcotic.mp3'),(14,'Liquor Store Blues','Bruno Mars (ft. Damien Marley)','Doo-Wops & Hooligans',229,'songs/Liquor_Store_Blues.mp3'),(15,'Pictures Of You','The Cure','Disintegration',448,'songs/Pictures_of_You.mp3'),(16,'Resonance','HOME','Odyssey',212,'songs/resonance_home.mp3'),(17,'Scar Tissue','Red Hot Chili Peppers','Californication',215,'songs/Scar_Tissue.mp3'),(18,'Square Hammer','Ghost','Popestar',239,'songs/Square_Hammer.mp3'),(19,'This Is The Last Time','The National','Trouble With Find Me',283,'songs/This_Is_The_Last_Time.mp3'),(20,'Wish You Were Here','Pink Floyd','Wish You Were Here',334,'songs/Wish_You_Were_Here.mp3'),(21,'Wish You Were Here','Incubus','Morning View',214,'songs/Incubus_Wish_You_Were_Here.mp3'),(22,'Coming Home','Alter Bridge','Blackbird',260,'songs/Coming_Home.mp3'),(23,'Bullet','Franz Ferdinand','Right Thoughts,Right Words,Right Action',163,'songs/Bullet.mp3'),(24,'Love Illumination','Franz Ferdinand','Right Thoughts,Right Words,Right Action',222,'songs/Love_Illumination.mp3');
+INSERT INTO `songs` VALUES (1,'Apply Some Pressure','Maximo Park','A Certain Trigger',200,'./songs/Apply_Some_Pressure.mp3'),(2,'Atlantide','Frencesco De Gregori','Vivavoce',229,'./songs/Atlantide.mp3'),(3,'Piano Man','Billy Joel','The Essential Billy Joel',337,'./songs/Billy_Joel_Piano_Man.mp3'),(4,'Blackbird','Alter Bridge','Blackbird',478,'./songs/Blackbird.mp3'),(5,'Do You Love Me?','The Contours','Do You Love Me',173,'./songs/do_you_love_me.mp3'),(6,'Evil And A Heathen','Franz Ferdinand','You Could Have It So Much Better',125,'./songs/Evil_and_a_Heathen.mp3'),(7,'Gabriel\'s Oboe','Ennio Morricone','The Mission (soundtrack)',149,'./songs/Gabriel\'s_Oboe.mp3'),(8,'Get Up And Get Down','The Dramatics','Watcha See Is Watcha Get',188,'./songs/get_up_and_get_down.mp3'),(9,'Helicopter','Bloc Party','Silent Alarm',220,'./songs/Helicopter.mp3'),(10,'Help Me, Rhonda','The Beach Boys','Help Me, Rhonda/Kiss Me Baby',164,'./songs/help_me_rhonda.mp3'),(11,'Jeremy','Pearl Jam','Ten',319,'./songs/Jeremy.mp3'),(12,'Khorakhanè','Fabrizio De Andrè','Anime Salve',332,'./songs/Khorakhanè.mp3'),(13,'Narcotic','Liquido','Narcotic - EP',231,'./songs/liquido_narcotic.mp3'),(14,'Liquor Store Blues','Bruno Mars (ft. Damien Marley)','Doo-Wops & Hooligans',229,'./songs/Liquor_Store_Blues.mp3'),(15,'Pictures Of You','The Cure','Disintegration',448,'./songs/Pictures_of_You.mp3'),(16,'Resonance','HOME','Odyssey',212,'./songs/resonance_home.mp3'),(17,'Scar Tissue','Red Hot Chili Peppers','Californication',215,'./songs/Scar_Tissue.mp3'),(18,'Square Hammer','Ghost','Popestar',239,'./songs/Square_Hammer.mp3'),(19,'This Is The Last Time','The National','Trouble With Find Me',283,'./songs/This_Is_The_Last_Time.mp3'),(20,'Wish You Were Here','Pink Floyd','Wish You Were Here',334,'./songs/Wish_You_Were_Here.mp3'),(21,'Wish You Were Here','Incubus','Morning View',214,'./songs/Incubus_Wish_You_Were_Here.mp3'),(22,'Coming Home','Alter Bridge','Blackbird',260,'./songs/Coming_Home.mp3'),(23,'Bullet','Franz Ferdinand','Right Thoughts,Right Words,Right Action',163,'./songs/Bullet.mp3'),(24,'Love Illumination','Franz Ferdinand','Right Thoughts,Right Words,Right Action',222,'./songs/Love_Illumination.mp3');
 /*!40000 ALTER TABLE `songs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-02 17:40:34
+-- Dump completed on 2018-08-01 16:46:04
