@@ -65,6 +65,20 @@ app.get('/', function(request, response){
   }
 });
 
+// richiesta get della schermata index
+app.get('/index.html', function(request, response){
+  console.log("ricevuta get alla index");
+  if(request.cookies.email){
+    console.log("cookie rilevati");
+    response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'home.html')); 
+    console.log("redirecting sulla home page");
+  }else{
+    console.log("cookie non rilevati");
+    response.sendFile(path.join(__dirname, prev_dir, prev_dir, client, 'index.html')); 
+    console.log("redirecting sulla login page");
+  }
+});
+
 // richiesta get della schermata home
 app.get('/home.html', function(request, response){
   console.log("ricevuta get alla home");
@@ -386,4 +400,5 @@ app.post('/removeFromPlaylist', function(request, response){
 });
 
 // gestione dei file statici (html, css, js, ecc...)
+app.use('/songs', express.static(path.join(__dirname, prev_dir, 'songs')));
 app.use(express.static('client'));
