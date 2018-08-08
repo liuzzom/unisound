@@ -61,6 +61,7 @@ function validation(){
             window.location.href = './home.html';
         }).fail(function(){
             alert("ERRORE: verifica le credenziali e riprova");
+            document.getElementById('password').value="";
         });
     });
 }
