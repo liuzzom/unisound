@@ -50,6 +50,7 @@ function menuToggle(){
             document.getElementById('rightpane').style.width = "20%";
             $('.leftpane').show();
             $('.rightpane').show();
+            $('.middlepane').show();
         }
     }
 
