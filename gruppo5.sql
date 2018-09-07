@@ -20,7 +20,10 @@
 --
 
 CREATE USER 'gruppo5_admin'@'%' IDENTIFIED BY 'gruppo5';
-GRANT ALL PRIVILEGES ON * . * TO 'gruppo5_admin'@'%'
+GRANT ALL PRIVILEGES ON * . * TO 'gruppo5_admin'@'%';
+
+CREATE DATABASE gruppo5;
+USE gruppo5;
 
 DROP TABLE IF EXISTS `friends`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
